@@ -23,6 +23,17 @@ db = SqlAlchemyDataset(
 
 # TODO: example expectation gx_sql.db.expect_table_row_count_to_equal(1)
 
-# 1. endpoint to list database schemas
-# 2. endpoint to list database tables for schemas
+# TODO: 1. endpoint to list database schemas
+# In [28]: from sqlalchemy import inspect
+# In [29]: a = inspect(gx_sql.sql_engine)
+# In [30]: a
+# Out[30]: <sqlalchemy.dialects.postgresql.base.PGInspector at 0x7fa818789540>
+# In [31]: a.get_schema_names()
+
+# TODO 2. endpoint to list database tables for schemas
+# In [33]: a.get_table_names(schema="shakespeare")
+# Out[33]: ['wordform', 'work', 'chapter', 'character', 'character_work', 'paragraph']
+
 # 3. endpoint to accept schema / tabel and expectation to return validation result
+
+meta = sa.MetaData(bind=sql_engine, )
