@@ -17,7 +17,7 @@ aio_sql_engine = create_async_engine(url=aio_connection_url)
 db = SqlAlchemyDataset(
     table_name="chapter",
     engine=sql_engine,
-    custom_sql="select * from shakespeare.chapter",
+    # custom_sql="select * from shakespeare.chapter",
     schema="shakespeare",
 )
 
@@ -34,6 +34,7 @@ db = SqlAlchemyDataset(
 # In [33]: a.get_table_names(schema="shakespeare")
 # Out[33]: ['wordform', 'work', 'chapter', 'character', 'character_work', 'paragraph']
 
+# TODO 3.
 # 3. endpoint to accept schema / tabel and expectation to return validation result
 
-meta = sa.MetaData(bind=sql_engine, )
+# TODO 4. db session via middleware
