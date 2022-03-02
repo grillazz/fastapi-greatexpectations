@@ -1,5 +1,7 @@
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from great_expectations.dataset import SqlAlchemyDataset
+from sqlalchemy.orm import Session
+from sqlalchemy.engine import Engine
 
 from .database import session, engine
 
@@ -20,20 +22,28 @@ async def db_session_middleware(request: Request, call_next):
 
 # Dependency
 def get_db(request: Request):
-    return request.state.db
+    return request.state.db.engine
 
 
-@app.get("/dupa")
+@app.get("/dupa/{c}")
 async def try_expectations(
-    request: Request
+    c: int,
+    request: Request,
+    engine: Engine = Depends(get_db)
 ):
     db = SqlAlchemyDataset(
         table_name="chapter",
-        engine=request.state.db.engine,
+        engine=engine,
         schema="shakespeare",
     )
-    return db.expect_table_row_count_to_equal(1)
-
+    # return db.expect_table_row_count_to_equal(1)
+    # TODO: try catch
+    #  TypeError: Dataset.expect_multicolumn_sum_to_equal() missing 2 required positional arguments: 'column_list' and 'sum_total'
+    try:
+        # return db.expect_multicolumn_sum_to_equal()
+        return db.expect_table_row_count_to_equal(c)
+    except TypeError as e:
+        return e.__repr__()
 
 # TODO: 1. endpoint to list database schemas
 # In [28]: from sqlalchemy import inspect
