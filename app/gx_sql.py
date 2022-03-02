@@ -8,7 +8,7 @@ aio_connection_url = "postgresql+asyncpg://user:secret@db:5432/gxshakezz"
 sql_engine = sa.create_engine(url=connection_url, echo=True)
 
 aio_sql_engine = create_async_engine(url=aio_connection_url)
-
+from .database import session
 # e = SqlAlchemyExecutionEngine(
 #
 # )
