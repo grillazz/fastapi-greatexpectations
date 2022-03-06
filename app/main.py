@@ -34,7 +34,7 @@ def get_db(request: Request):
 
 @app.post("/dupa/{gx_func}")
 async def try_expectations(
-    c: int, # pass parameters as json dict and in next step unpack to **mapping /
+    c: dict, # pass parameters as json dict and in next step unpack to **mapping /
         # should be validated as pydantic allowe names
     gx_func: GxFuncModel,
     request: Request,
@@ -53,7 +53,7 @@ async def try_expectations(
     try:
 
         # return db.expect_multicolumn_sum_to_equal()
-        e = eval("db."+gx_func+"(c)")
+        e = eval("db."+gx_func+"(**c)")
         return e
     except TypeError as e:
         return e.__repr__()
