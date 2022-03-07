@@ -38,20 +38,20 @@ def get_db(request: Request):
 
 
 @app.get("/schemas")
-async def get_db_schemas(
+async def get_schemas(
         sql_engine: Engine = Depends(get_db),
 ) -> List[str]:
-    db = inspect(sql_engine)
-    return db.get_schema_names()
+    inspected = inspect(sql_engine)
+    return inspected.get_schema_names()
 
 
 @app.get("/databases")
-async def get_dbs_for_schemas(
+async def get_databases_for_schema(
         sql_schema: str,
         sql_engine: Engine = Depends(get_db),
 ) -> List[str]:
-    db = inspect(sql_engine)
-    return db.get_table_names(schema=sql_schema)
+    inspected = inspect(sql_engine)
+    return inspected.get_table_names(schema=sql_schema)
 
 
 @app.post("/dupa/{gx_func}")
