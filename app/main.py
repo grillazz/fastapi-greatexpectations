@@ -53,7 +53,7 @@ async def get_schema_tables(
 
 
 @app.get("/table_columns")
-async def get_table_colums(
+async def get_table_columns(
         database_schema: str,
         schema_table: str,
         sql_engine: Engine = Depends(get_db),
