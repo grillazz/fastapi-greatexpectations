@@ -34,10 +34,7 @@ def get_db(request: Request):
     return request.state.db_engine
 
 
-# TODO: add enum with expectations as available parameters
-
-
-@app.get("/schemas")
+@app.get("/db_schemas")
 async def get_schemas(
         sql_engine: Engine = Depends(get_db),
 ) -> List[str]:
@@ -45,28 +42,29 @@ async def get_schemas(
     return inspected.get_schema_names()
 
 
-@app.get("/databases")
-async def get_databases_for_schema(
-        sql_schema: str,
+@app.get("/db_tables")
+async def get_tables(
+        sql_db_schema: str,
         sql_engine: Engine = Depends(get_db),
 ) -> List[str]:
     inspected = inspect(sql_engine)
-    return inspected.get_table_names(schema=sql_schema)
+    return inspected.get_table_names(schema=sql_db_schema)
 
 
 @app.post("/dupa/{gx_func}")
 async def try_expectations(
         c: dict,  # pass parameters as json dict and in next step unpack to **mapping /
         # should be validated as pydantic allowe names
+        database_schema: str,
+        database_name: str,
         gx_func: GxFuncModel,
-        request: Request,
-        engine: Engine = Depends(get_db),
+        sql_engine: Engine = Depends(get_db),
 
 ):
     # TODO: can be singleton
     db = SqlAlchemyDataset(
         table_name="chapter",
-        engine=engine,
+        engine=sql_engine,
         schema="shakespeare",
     )
     # return db.expect_table_row_count_to_equal(1)
