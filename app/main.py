@@ -52,6 +52,20 @@ async def get_schema_tables(
     return inspected.get_table_names(schema=sql_db_schema)
 
 
+@app.get("/table_columns")
+async def get_table_colums(
+        database_schema: str,
+        schema_table: str,
+        sql_engine: Engine = Depends(get_db),
+) -> List[dict]:
+    db = SqlAlchemyDataset(
+        table_name=schema_table,
+        engine=sql_engine,
+        schema=database_schema,
+    )
+    return db.columns
+
+
 @app.post("/dupa/{gx_func}")
 async def try_expectations(
         gx_mapping: dict,  # pass parameters as json dict and in next step unpack to **mapping /
