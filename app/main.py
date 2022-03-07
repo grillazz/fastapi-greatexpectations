@@ -1,8 +1,11 @@
+from typing import List
+
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy.orm import Session
 from sqlalchemy.engine import Engine
 from enum import Enum
+from sqlalchemy import inspect
 
 from .database import session, engine
 
@@ -30,15 +33,34 @@ async def db_session_middleware(request: Request, call_next):
 def get_db(request: Request):
     return request.state.db_engine
 
+
 # TODO: add enum with expectations as available parameters
+
+
+@app.get("/schemas")
+async def get_db_schemas(
+        sql_engine: Engine = Depends(get_db),
+) -> List[str]:
+    db = inspect(sql_engine)
+    return db.get_schema_names()
+
+
+@app.get("/databases")
+async def get_dbs_for_schemas(
+        sql_schema: str,
+        sql_engine: Engine = Depends(get_db),
+) -> List[str]:
+    db = inspect(sql_engine)
+    return db.get_table_names(schema=sql_schema)
+
 
 @app.post("/dupa/{gx_func}")
 async def try_expectations(
-    c: dict, # pass parameters as json dict and in next step unpack to **mapping /
+        c: dict,  # pass parameters as json dict and in next step unpack to **mapping /
         # should be validated as pydantic allowe names
-    gx_func: GxFuncModel,
-    request: Request,
-    engine: Engine = Depends(get_db),
+        gx_func: GxFuncModel,
+        request: Request,
+        engine: Engine = Depends(get_db),
 
 ):
     # TODO: can be singleton
@@ -53,7 +75,7 @@ async def try_expectations(
     try:
 
         # return db.expect_multicolumn_sum_to_equal()
-        e = eval("db."+gx_func+"(**c)")
+        e = eval(f"db.{gx_func}(**c)")
         return e
     except TypeError as e:
         return e.__repr__()
