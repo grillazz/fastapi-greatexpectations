@@ -14,6 +14,7 @@ app = FastAPI()
 
 class GxFuncModel(str, Enum):
     expect_table_row_count_to_equal = "expect_table_row_count_to_equal"
+    expect_multicolumn_sum_to_equal = "expect_multicolumn_sum_to_equal"
 
 
 @app.middleware("http")
@@ -35,7 +36,7 @@ def get_db(request: Request):
 
 
 @app.get("/db_schemas")
-async def get_schemas(
+async def get_database_schemas(
         sql_engine: Engine = Depends(get_db),
 ) -> List[str]:
     inspected = inspect(sql_engine)
@@ -43,7 +44,7 @@ async def get_schemas(
 
 
 @app.get("/db_tables")
-async def get_tables(
+async def get_schema_tables(
         sql_db_schema: str,
         sql_engine: Engine = Depends(get_db),
 ) -> List[str]:
@@ -53,28 +54,25 @@ async def get_tables(
 
 @app.post("/dupa/{gx_func}")
 async def try_expectations(
-        c: dict,  # pass parameters as json dict and in next step unpack to **mapping /
+        gx_mapping: dict,  # pass parameters as json dict and in next step unpack to **mapping /
         # should be validated as pydantic allowe names
-        database_schema: str,
-        database_name: str,
         gx_func: GxFuncModel,
+        database_schema: str,
+        schema_table: str,
         sql_engine: Engine = Depends(get_db),
 
 ):
     # TODO: can be singleton
     db = SqlAlchemyDataset(
-        table_name="chapter",
+        table_name=schema_table,
         engine=sql_engine,
-        schema="shakespeare",
+        schema=database_schema,
     )
     # return db.expect_table_row_count_to_equal(1)
     # TODO: try catch
     #  TypeError: Dataset.expect_multicolumn_sum_to_equal() missing 2 required positional arguments: 'column_list' and 'sum_total'
     try:
-
-        # return db.expect_multicolumn_sum_to_equal()
-        e = eval(f"db.{gx_func}(**c)")
-        return e
+        return eval(f"db.{gx_func}(**gx_mapping)")
     except TypeError as e:
         return e.__repr__()
 
