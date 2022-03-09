@@ -58,11 +58,7 @@ async def get_table_columns(
         schema_table: str,
         sql_engine: Engine = Depends(get_db),
 ) -> List[dict]:
-    db = SqlAlchemyDataset(
-        table_name=schema_table,
-        engine=sql_engine,
-        schema=database_schema,
-    )
+    db = SqlAlchemyDataset(table_name=schema_table, engine=sql_engine, schema=database_schema)
     return db.columns
 
 
