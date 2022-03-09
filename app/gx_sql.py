@@ -38,3 +38,28 @@ db = SqlAlchemyDataset(
 # 3. endpoint to accept schema / tabel and expectation to return validation result
 
 # TODO 4. db session via middleware
+
+# # TODO 5. to save expectation suite
+# In [1]: from app import gx_sql
+# In [2]: a = gx_sql.db
+# In [3]: a.expectation_suite_name = "dupa"
+# In [4]: a.expect_table_row_count_to_equal(1)
+# In [5]: a.get_expectation_suite(discard_failed_expectations=False)
+# Out[5]:
+# {
+#   "expectation_suite_name": "dupa",
+#   "expectations": [
+#     {
+#       "kwargs": {
+#         "value": 1
+#       },
+#       "expectation_type": "expect_table_row_count_to_equal",
+#       "meta": {}
+#     }
+#   ],
+#   "ge_cloud_id": null,
+#   "data_asset_type": "Dataset",
+#   "meta": {
+#     "great_expectations_version": "0.14.8"
+#   }
+# }
