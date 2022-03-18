@@ -10,18 +10,13 @@ router = APIRouter(prefix="/v1/database")
 
 
 @router.get("/schemas")
-async def get_database_schemas(
-        sql_engine: Engine = Depends(get_db),
-) -> List[str]:
+async def get_database_schemas(sql_engine: Engine = Depends(get_db)) -> List[str]:
     inspected = inspect(sql_engine)
     return inspected.get_schema_names()
 
 
 @router.get("/tables")
-async def get_schema_tables(
-        sql_db_schema: str,
-        sql_engine: Engine = Depends(get_db),
-) -> List[str]:
+async def get_schema_tables(sql_db_schema: str, sql_engine: Engine = Depends(get_db)) -> List[str]:
     inspected = inspect(sql_engine)
     return inspected.get_table_names(schema=sql_db_schema)
 

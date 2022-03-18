@@ -12,6 +12,7 @@ sqlalchemy = "*"
 ipython = "*"
 fastapi = "*"
 uvicorn = "*"
+pg_activity = "*"
 
 [requires]
 python_version = "3.10"
