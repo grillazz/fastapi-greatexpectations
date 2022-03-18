@@ -5,11 +5,14 @@ from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy.orm import Session
 from sqlalchemy.engine import Engine
 from enum import Enum
-from sqlalchemy import inspect
+from app.api.v1.database import router as database_router
+
 
 from .database import session, engine
 
 app = FastAPI()
+
+app.include_router(database_router)
 
 
 class GxFuncModel(str, Enum):
@@ -35,33 +38,6 @@ def get_db(request: Request):
     return request.state.db_engine
 
 
-@app.get("/db_schemas")
-async def get_database_schemas(
-        sql_engine: Engine = Depends(get_db),
-) -> List[str]:
-    inspected = inspect(sql_engine)
-    return inspected.get_schema_names()
-
-
-@app.get("/db_tables")
-async def get_schema_tables(
-        sql_db_schema: str,
-        sql_engine: Engine = Depends(get_db),
-) -> List[str]:
-    inspected = inspect(sql_engine)
-    return inspected.get_table_names(schema=sql_db_schema)
-
-
-@app.get("/table_columns")
-async def get_table_columns(
-        database_schema: str,
-        schema_table: str,
-        sql_engine: Engine = Depends(get_db),
-) -> List[dict]:
-    db = SqlAlchemyDataset(table_name=schema_table, engine=sql_engine, schema=database_schema)
-    return db.columns
-
-
 @app.post("/dupa/{gx_func}")
 async def try_expectations(
         gx_mapping: dict,  # pass parameters as json dict and in next step unpack to **mapping /
@@ -72,12 +48,8 @@ async def try_expectations(
         sql_engine: Engine = Depends(get_db),
 
 ):
-    # TODO: can be singleton
-    db = SqlAlchemyDataset(
-        table_name=schema_table,
-        engine=sql_engine,
-        schema=database_schema,
-    )
+    # TODO: can be singleton ?
+    db = SqlAlchemyDataset(table_name=schema_table, engine=sql_engine, schema=database_schema)
     # return db.expect_table_row_count_to_equal(1)
     # TODO: try catch
     #  TypeError: Dataset.expect_multicolumn_sum_to_equal() missing 2 required positional arguments: 'column_list' and 'sum_total'
