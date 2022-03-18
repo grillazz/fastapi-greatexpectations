@@ -1,23 +1,14 @@
-from typing import List
+from fastapi import FastAPI, Request, Response
 
-from fastapi import Depends, FastAPI, HTTPException, Request, Response
-from great_expectations.dataset import SqlAlchemyDataset
-from sqlalchemy.orm import Session
-from sqlalchemy.engine import Engine
-from enum import Enum
 from app.api.v1.database import router as database_router
+from app.api.v1.expectation import router as gx_router
 
-
-from .database import session, engine
+from .database import engine, session
 
 app = FastAPI()
 
 app.include_router(database_router)
-
-
-class GxFuncModel(str, Enum):
-    expect_table_row_count_to_equal = "expect_table_row_count_to_equal"
-    expect_multicolumn_sum_to_equal = "expect_multicolumn_sum_to_equal"
+app.include_router(gx_router)
 
 
 @app.middleware("http")
@@ -32,31 +23,6 @@ async def db_session_middleware(request: Request, call_next):
         pass
     return response
 
-
-# Dependency
-def get_db(request: Request):
-    return request.state.db_engine
-
-
-@app.post("/dupa/{gx_func}")
-async def try_expectations(
-        gx_mapping: dict,  # pass parameters as json dict and in next step unpack to **mapping /
-        # should be validated as pydantic allowe names
-        gx_func: GxFuncModel,
-        database_schema: str,
-        schema_table: str,
-        sql_engine: Engine = Depends(get_db),
-
-):
-    # TODO: can be singleton ?
-    db = SqlAlchemyDataset(table_name=schema_table, engine=sql_engine, schema=database_schema)
-    # return db.expect_table_row_count_to_equal(1)
-    # TODO: try catch
-    #  TypeError: Dataset.expect_multicolumn_sum_to_equal() missing 2 required positional arguments: 'column_list' and 'sum_total'
-    try:
-        return eval(f"db.{gx_func}(**gx_mapping)")
-    except TypeError as e:
-        return e.__repr__()
 
 # TODO: 1. endpoint to list database schemas
 # In [28]: from sqlalchemy import inspect

@@ -1,0 +1,37 @@
+.PHONY: help
+help: ## Show this help
+	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: build
+build:	## Build project with compose
+	docker-compose build
+
+.PHONY: up_code
+up_code:	## Run project with compose
+	docker-compose up --build --remove-orphans
+
+up: black isort up_code
+
+.PHONY: down
+down: ## Reset project containers with compose
+	docker-compose down
+
+.PHONY: clean
+clean: ## Clean Reset project containers with compose
+	docker-compose down -v --remove-orphans
+
+.PHONY: isort
+isort:  ## sort imports in project code.
+	docker-compose run --rm app isort  -m 3 -tc .
+
+.PHONY: black
+black:  ## apply black in project code.
+	docker-compose run --rm app black .
+
+.PHONY: mypy
+mypy:  ## apply black in project code.
+	docker-compose run --rm app mypy --ignore-missing-imports .
+
+.PHONY: flake8
+flake8:  ## apply black in project code.
+	docker-compose run --rm app flake8 .
