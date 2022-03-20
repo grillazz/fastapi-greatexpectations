@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, HTTPException, Request, Response
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.api.v1.database import router as database_router
 from app.api.v1.expectation import router as gx_router
@@ -15,12 +16,11 @@ app.include_router(gx_router)
 async def db_session_middleware(request: Request, call_next):
     response = Response("Internal server error", status_code=500)
     try:
-        # request.state.db = session()
+        request.state.db_session = session()
         request.state.db_engine = engine
         response = await call_next(request)
     finally:
-        # request.state.db.close()
-        pass
+        request.state.db_session.close()
     return response
 
 
