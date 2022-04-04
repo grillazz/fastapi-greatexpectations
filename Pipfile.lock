@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "915bab17ddbd76ea14d209b2ee003405c6514cbdd106aeef9798243a00caa42c"
+            "sha256": "9bcd03d613f26455f4075dc8e79e6bafb198af011121176ba11ef97e46f6359e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -403,6 +403,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==4.11.3"
+        },
+        "inflect": {
+            "hashes": [
+                "sha256:2eb3f9a481e12849370d5a74acc546cc128d79df6e483928aa78b5bb18244ef6",
+                "sha256:b58d58c4e73ffca9b25e075c1c4fc9cadecbb5c99d7cd9f3cdedda73ece83c1c"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==5.4.0"
         },
         "ipython": {
             "hashes": [
@@ -1008,6 +1016,14 @@
             "markers": "python_version >= '3.5'",
             "version": "==1.2.0"
         },
+        "sqlacodegen": {
+            "hashes": [
+                "sha256:3a8cefb302a95636ab90ab66e0c5efbee3dbcb68dca4f65bfbb94c3c5db46c60",
+                "sha256:749f063258ee0d8bfe98434f1c55afdeb469aaa6de2242445ae443e3305c5753"
+            ],
+            "index": "pypi",
+            "version": "==3.0.0b3"
+        },
         "sqlalchemy": {
             "hashes": [
                 "sha256:045d6a26c262929af0b9cb25441aae675ac04db4ea8bd2446b355617cd6b6b7d",
@@ -1076,7 +1092,7 @@
                 "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc",
                 "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_version < '3.11'",
             "version": "==2.0.1"
         },
         "toolz": {
@@ -1132,7 +1148,7 @@
                 "sha256:44ece4d53fb1706f667c9bd1c648f5469a2ec925fcf3a776667042d645472c14",
                 "sha256:aabaf16477806a5e1dd19aa41f8c2b7950dd3c746362d7e3223dbe6de6ac448e"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
             "version": "==1.26.9"
         },
         "uvicorn": {
