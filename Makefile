@@ -39,3 +39,7 @@ flake8:  ## apply black in project code.
 .PHONY: feed_db
 feed_db: ## create database objects and insert data
 	docker-compose exec db psql gxshakezz user -f /home/gx/code/shakespeare.sql
+
+.PHONY: requirements
+requirements:	## Refresh requirements.txt from pipfile.lock
+	pipenv lock -r -d > requirements.txt
