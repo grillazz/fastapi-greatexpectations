@@ -35,3 +35,7 @@ mypy:  ## apply black in project code.
 .PHONY: flake8
 flake8:  ## apply black in project code.
 	docker-compose run --rm app flake8 .
+
+.PHONY: feed_db
+feed_db: ## create database objects and insert data
+	docker-compose exec db psql gxshakezz user -f /home/gx/code/shakespeare.sql
