@@ -2,7 +2,7 @@ from fastapi import Request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-url = "postgresql://user:secret@db:5432/user"
+url = "postgresql://user:secret@db:5432/gxshakezz"
 
 engine = create_engine(url, echo=True)
 
