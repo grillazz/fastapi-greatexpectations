@@ -1,4 +1,4 @@
 DROP DATABASE IF EXISTS gxshakezz;
 CREATE DATABASE gxshakezz;
-DROP DATABASE IF EXISTS tetsshakezz;
+DROP DATABASE IF EXISTS testshakezz;
 CREATE DATABASE testshakezz;
