@@ -4,17 +4,13 @@ from sqlalchemy.orm import sessionmaker
 
 url = "postgresql://user:secret@db:5432/gxshakezz"
 
-engine = create_engine(url, echo=True)
+engine = create_engine(url, echo=False, echo_pool=True)
 
 session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-# Dependency
 def get_db(request: Request):
     return request.state.db_engine
-
-
-engine = create_engine(url, echo=True)
 
 
 # In [40]: from sqlalchemy.ext.automap import automap_base
