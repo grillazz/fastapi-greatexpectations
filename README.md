@@ -1,6 +1,6 @@
 # fastapi-greatexpectations
 
-In this plac two personas r Sheks and Mr Dicks will be hosed by Almigty "Monty" Python :)
+In this place two personas Mr Sheks and Mr Dicks will be hosted by Almighty Monthy Python :)
 
 1. get data https://github.com/catherinedevlin/opensourceshakespeare
 2. `make feed_db` will load database
@@ -10,8 +10,9 @@ In this plac two personas r Sheks and Mr Dicks will be hosed by Almigty "Monty" 
 Build queue on https://arq-docs.helpmanual.io/
 
 Grafika postacie jakby z wycinanki jak te z filimikow mmoanty pythona
-Siedza przy stole (okraglym) z jednej dickens z drugiej szekapir a na srodku waz 
-popijaja herbatke a na scianie sa wycete glowki tych gosci z monty pythona - jeden moze miec korone jak elka druga
+Siedza przy stole (okraglym ?) z jednej dickens z drugiej szekapir a na srodku waz (taki jak python)
+popijaja herbatke a na scianie sa wycete glowki tych gosci z monty pythona - jeden moze miec korone jak elka druga czy cos
+tutaj mozna byc kreatywnym
 
 
 Can we be better prepared for expected unexpected philosophy ?
@@ -19,6 +20,8 @@ The “expect the unexpected” philosophy leads to the freedom of
 choice and the freedom of others people judgment, 
 creating a future full of possibilities, accepting that whatever will be,
 will be; the future's not ours to see, que será, será.
+
+Example: imagine if you like to check for unexpected user behaviors and put some decisions on it...
 
 What about simple cmd line interface as alternative to REST API ?
 Typer or Rich
