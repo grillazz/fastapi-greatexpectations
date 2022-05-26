@@ -28,4 +28,3 @@ class Base:
                     f" {exception.__repr__()} "
                 ),
             )
-

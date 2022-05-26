@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy import inspect
 from sqlalchemy.engine import Engine
@@ -28,6 +28,7 @@ async def get_schema_tables(
 async def get_table_columns(
     database_schema: str,
     schema_table: str,
+    request: Request,
     sql_engine: Engine = Depends(get_db),
 ) -> List[dict]:
     db = SqlAlchemyDataset(

@@ -24,7 +24,7 @@ async def try_expectations(
     database_schema: str,
     schema_table: str,
     sql_engine: Engine = Depends(get_db),
-    suite_name: str = None # if suite name is not empty this mean expectation will be save
+    suite_name: str = None,  # if suite name is not empty this mean expectation will be save
 ):
     """
 
