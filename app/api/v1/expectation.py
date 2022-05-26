@@ -24,6 +24,7 @@ async def try_expectations(
     database_schema: str,
     schema_table: str,
     sql_engine: Engine = Depends(get_db),
+    suite_name: str = None # if suite name is not empty this mean expectation will be save
 ):
     """
 
@@ -38,6 +39,13 @@ async def try_expectations(
     db = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
+
+    if suite_name:
+        db.expectation_suite_name = suite_name
+        eval(f"db.{gx_func}(**gx_mapping)")
+        return db.get_expectation_suite(discard_failed_expectations=False)
+        # save to model
+
     # return db.expect_table_row_count_to_equal(1)
     # TODO: try catch
     #  TypeError: Dataset.expect_multicolumn_sum_to_equal() missing 2 required positional arguments: 'column_list' and 'sum_total'
