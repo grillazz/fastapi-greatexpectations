@@ -52,3 +52,57 @@ db = SqlAlchemyDataset(
 #     "great_expectations_version": "0.14.8"
 #   }
 # }
+# TODO 6: validate
+# In [27]: a.validate()
+# Out[27]:
+# {
+#   "meta": {
+#     "great_expectations_version": "0.15.3",
+#     "expectation_suite_name": "dupa",
+#     "run_id": {
+#       "run_time": "2022-05-07T16:46:54.481813+00:00",
+#       "run_name": null
+#     },
+#     "batch_kwargs": {
+#       "ge_batch_id": "93f92a20-ce20-11ec-926e-0242ac160003"
+#     },
+#     "batch_markers": {},
+#     "batch_parameters": {},
+#     "validation_time": "20220507T164654.481638Z",
+#     "expectation_suite_meta": {
+#       "great_expectations_version": "0.15.3"
+#     }
+#   },
+#   "success": false,
+#   "evaluation_parameters": {},
+#   "statistics": {
+#     "evaluated_expectations": 1,
+#     "successful_expectations": 0,
+#     "unsuccessful_expectations": 1,
+#     "success_percent": 0.0
+#   },
+#   "results": [
+#     {
+#       "result": {
+#         "observed_value": 945
+#       },
+#       "meta": {},
+#       "exception_info": {
+#         "raised_exception": false,
+#         "exception_message": null,
+#         "exception_traceback": null
+#       },
+#       "success": false,
+#       "expectation_config": {
+#         "kwargs": {
+#           "value": 1,
+#           "result_format": "BASIC"
+#         },
+#         "meta": {},
+#         "expectation_type": "expect_table_row_count_to_equal"
+#       }
+#     }
+#   ]
+# }
+#
+# In [28]:
