@@ -1,7 +1,6 @@
 from enum import Enum
-from typing import AnyStr, Dict, List
-
-from fastapi import APIRouter, Depends
+# Query, Body as data class with slots with swagger docs ???
+from fastapi import APIRouter, Depends, Query, Body
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy import inspect
 from sqlalchemy.engine import Engine
@@ -11,6 +10,7 @@ from app.database import get_db
 router = APIRouter(prefix="/v1/gx")
 
 
+# TODO: every expect fn should suggest adequate example payload
 class GxFuncModel(str, Enum):
     expect_table_row_count_to_equal = "expect_table_row_count_to_equal"
     expect_multicolumn_sum_to_equal = "expect_multicolumn_sum_to_equal"
@@ -18,23 +18,14 @@ class GxFuncModel(str, Enum):
 
 @router.post("/try/{gx_func}")
 async def try_expectations(
-    gx_mapping: Dict,  # pass parameters as json dict and in next step unpack to **mapping /
-    # should be validated as pydantic allowe names
+    # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
     gx_func: GxFuncModel,
     database_schema: str,
     schema_table: str,
     sql_engine: Engine = Depends(get_db),
-    suite_name: str = None,  # if suite name is not empty this mean expectation will be save
+    suite_name: str = Query(None, description="if suite name is not empty this mean expectation will be save"),
+    gx_mapping: dict = Body(None, description="pass parameters as json dict and in next step unpack to **mapping")
 ):
-    """
-
-    :param gx_mapping:
-    :param gx_func:
-    :param database_schema:
-    :param schema_table:
-    :param sql_engine:
-    :return:
-    """
     # TODO: can be singleton ?
     db = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
