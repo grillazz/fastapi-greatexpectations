@@ -1,8 +1,8 @@
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
+from sqlalchemy.orm import Session
 
 
 @as_declarative()
@@ -16,10 +16,10 @@ class Base:
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
 
-    async def save(self, db: AsyncSession):
+    def save(self, db: Session):
         try:
             db.add(self)
-            return await db.commit()
+            return db.commit()
         except Exception as exception:
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,

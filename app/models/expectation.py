@@ -1,6 +1,6 @@
 import uuid
 
-from base import Base
+from .base import Base
 from sqlalchemy import Column, String
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.ext.mutable import MutableDict
@@ -17,9 +17,9 @@ class ExpectationStore(Base):
     def __init__(
         self,
         suite_name: str,
-        suite_decs: str,
+        suite_desc: str,
         value: JSONB,
     ):
         self.suite_name = suite_name
-        self.suite_desc = suite_decs
+        self.suite_desc = suite_desc
         self.value = value

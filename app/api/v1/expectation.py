@@ -1,11 +1,14 @@
 from enum import Enum
+
 # Query, Body as data class with slots with swagger docs ???
-from fastapi import APIRouter, Depends, Query, Body
+from fastapi import APIRouter, Body, Depends, Query
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy import inspect
 from sqlalchemy.engine import Engine
+from sqlalchemy.orm import Session
 
-from app.database import get_db
+from app.database import engine, get_db
+from app.models.expectation import ExpectationStore
 
 router = APIRouter(prefix="/v1/gx")
 
@@ -17,14 +20,20 @@ class GxFuncModel(str, Enum):
 
 
 @router.post("/try/{gx_func}")
-async def try_expectations(
+def try_expectations(
     # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
     gx_func: GxFuncModel,
     database_schema: str,
     schema_table: str,
     sql_engine: Engine = Depends(get_db),
-    suite_name: str = Query(None, description="if suite name is not empty this mean expectation will be save"),
-    gx_mapping: dict = Body(None, description="pass parameters as json dict and in next step unpack to **mapping")
+    suite_name: str = Query(
+        None,
+        description="if suite name is not empty this mean expectation will be save",
+    ),
+    gx_mapping: dict = Body(
+        None,
+        description="pass parameters as json dict and in next step unpack to **mapping",
+    ),
 ):
     # TODO: can be singleton ?
     db = SqlAlchemyDataset(
@@ -34,7 +43,13 @@ async def try_expectations(
     if suite_name:
         db.expectation_suite_name = suite_name
         eval(f"db.{gx_func}(**gx_mapping)")
-        return db.get_expectation_suite(discard_failed_expectations=False)
+        gx_suite = db.get_expectation_suite(discard_failed_expectations=False)
+        expectation_store = ExpectationStore(
+            suite_name=suite_name, suite_desc="balblabla", value=gx_suite.to_json_dict()
+        )
+        with Session(sql_engine) as session:
+            expectation_store.save(session)
+        return gx_suite
         # save to model
 
     # return db.expect_table_row_count_to_equal(1)
