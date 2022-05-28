@@ -7,7 +7,7 @@ from sqlalchemy import inspect
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
-from app.database import engine, get_db
+from app.database import engine, get_db, get_db_session
 from app.models.expectation import ExpectationStore
 
 router = APIRouter(prefix="/v1/gx")
@@ -26,6 +26,7 @@ def try_expectations(
     database_schema: str,
     schema_table: str,
     sql_engine: Engine = Depends(get_db),
+    sql_session: Session = Depends(get_db_session),
     suite_name: str = Query(
         None,
         description="if suite name is not empty this mean expectation will be save",
@@ -41,15 +42,15 @@ def try_expectations(
     )
 
     if suite_name:
+        # TODO: if suite for name already exists in database get it and update ?
         db.expectation_suite_name = suite_name
         eval(f"db.{gx_func}(**gx_mapping)")
         gx_suite = db.get_expectation_suite(discard_failed_expectations=False)
         expectation_store = ExpectationStore(
             suite_name=suite_name, suite_desc="balblabla", value=gx_suite.to_json_dict()
         )
-        with Session(sql_engine) as session:
-            expectation_store.save(session)
-        return gx_suite
+        expectation_store.save(sql_session)
+
         # save to model
 
     # return db.expect_table_row_count_to_equal(1)
