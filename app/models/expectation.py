@@ -1,9 +1,10 @@
 import uuid
 
-from .base import Base
 from sqlalchemy import Column, String
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.ext.mutable import MutableDict
+
+from .base import Base
 
 
 class ExpectationStore(Base):

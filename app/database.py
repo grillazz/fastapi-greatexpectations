@@ -1,17 +1,20 @@
-from fastapi import Request, HTTPException
+from typing import Generator
+
+from fastapi import HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
 url = "postgresql://user:secret@db:5432/gxshakezz"
 
-engine = create_engine(url, echo=False, echo_pool=True)
+# query_cache_size=0 will disable sqlalchemy cache
+engine = create_engine(url, echo=True, echo_pool=True, query_cache_size=0)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 # Dependency
-def get_db_session():
+def get_db_session() -> Generator:
     # TODO: add logging
     session = SessionLocal()
     try:
@@ -26,8 +29,9 @@ def get_db_session():
         session.close()
 
 
-def get_db(request: Request):
-    return request.state.db_engine
+# Dependency
+def get_db():
+    return engine
 
 
 # In [40]: from sqlalchemy.ext.automap import automap_base

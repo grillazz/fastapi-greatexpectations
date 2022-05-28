@@ -1,27 +1,12 @@
-from fastapi import FastAPI, HTTPException, Request, Response
-from sqlalchemy.exc import SQLAlchemyError
+from fastapi import FastAPI
 
 from app.api.v1.database import router as database_router
 from app.api.v1.expectation import router as gx_router
-
-from .database import engine, session
 
 app = FastAPI()
 
 app.include_router(database_router)
 app.include_router(gx_router)
-
-
-@app.middleware("http")
-async def db_session_middleware(request: Request, call_next):
-    response = Response("Internal server error", status_code=500)
-    try:
-        request.state.db_session = session()
-        request.state.db_engine = engine
-        response = await call_next(request)
-    finally:
-        request.state.db_session.close()
-    return response
 
 
 # TODO: 1. endpoint to list database schemas
