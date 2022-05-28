@@ -1,12 +1,29 @@
-from fastapi import Request
+from fastapi import Request, HTTPException
 from sqlalchemy import create_engine
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
 url = "postgresql://user:secret@db:5432/gxshakezz"
 
 engine = create_engine(url, echo=False, echo_pool=True)
 
-session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+# Dependency
+def get_db_session():
+    # TODO: add logging
+    session = SessionLocal()
+    try:
+        yield session
+    except SQLAlchemyError as sql_ex:
+        session.rollback()
+        raise sql_ex
+    except HTTPException as http_ex:
+        session.rollback()
+        raise http_ex
+    finally:
+        session.close()
 
 
 def get_db(request: Request):
