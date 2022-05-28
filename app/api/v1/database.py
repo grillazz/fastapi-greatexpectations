@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import APIRouter, Depends
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy import inspect
@@ -11,7 +9,7 @@ router = APIRouter(prefix="/v1/database")
 
 
 @router.get("/schemas")
-async def get_database_schemas(sql_engine: Engine = Depends(get_db)) -> List[str]:
+async def get_database_schemas(sql_engine: Engine = Depends(get_db)) -> list[str]:
     inspected = inspect(sql_engine)
     return inspected.get_schema_names()
 
@@ -19,7 +17,7 @@ async def get_database_schemas(sql_engine: Engine = Depends(get_db)) -> List[str
 @router.get("/tables")
 async def get_schema_tables(
     sql_db_schema: str, sql_engine: Engine = Depends(get_db)
-) -> List[str]:
+) -> list[str]:
     inspected = inspect(sql_engine)
     return inspected.get_table_names(schema=sql_db_schema)
 
@@ -29,7 +27,7 @@ async def get_table_columns(
     database_schema: str,
     schema_table: str,
     sql_engine: Engine = Depends(get_db),
-) -> List[dict]:
+) -> list[dict]:
     db = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
