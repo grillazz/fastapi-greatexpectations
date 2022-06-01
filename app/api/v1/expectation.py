@@ -16,7 +16,7 @@ router = APIRouter(prefix="/v1/gx")
 # TODO: every expect fn should suggest adequate example payload
 class GxFuncModel(str, Enum):
     expect_table_row_count_to_equal = "expect_table_row_count_to_equal"
-    expect_multicolumn_sum_to_equal = "expect_multicolumn_sum_to_equal"
+    expect_table_column_count_to_be_between = "expect_table_column_count_to_be_between"
 
 
 @router.post("/try/{gx_func}")
@@ -44,7 +44,10 @@ def try_expectations(
     if suite_name:
         # TODO: if suite for name already exists in database get it and update ?
         db.expectation_suite_name = suite_name
-        eval(f"db.{gx_func}(**gx_mapping)")
+        try:
+            eval(f"db.{gx_func}(**gx_mapping)")
+        except TypeError as e:
+            return e.__repr__()
         # db.append_expectation()
         gx_suite = db.get_expectation_suite(discard_failed_expectations=False)
         expectation_store = ExpectationStore(
