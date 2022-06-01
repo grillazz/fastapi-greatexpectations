@@ -5,6 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
+from app.models.base import Base
+
 url = "postgresql://user:secret@db:5432/gxshakezz"
 
 # query_cache_size=0 will disable sqlalchemy cache
@@ -32,6 +34,10 @@ def get_db_session() -> Generator:
 # Dependency
 def get_db():
     return engine
+
+
+def start_db():
+    Base.metadata.create_all(engine)
 
 
 # In [40]: from sqlalchemy.ext.automap import automap_base

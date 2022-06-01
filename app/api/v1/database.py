@@ -28,6 +28,7 @@ async def get_table_columns(
     schema_table: str,
     sql_engine: Engine = Depends(get_db),
 ) -> list[dict]:
+    # TODO: add try catch when i.e. table not exists
     db = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )

@@ -45,6 +45,7 @@ def try_expectations(
         # TODO: if suite for name already exists in database get it and update ?
         db.expectation_suite_name = suite_name
         eval(f"db.{gx_func}(**gx_mapping)")
+        # db.append_expectation()
         gx_suite = db.get_expectation_suite(discard_failed_expectations=False)
         expectation_store = ExpectationStore(
             suite_name=suite_name, suite_desc="balblabla", value=gx_suite.to_json_dict()
