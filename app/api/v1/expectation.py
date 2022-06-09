@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db, get_db_session
 from app.models.expectation import ExpectationStore
 
-router = APIRouter(prefix="/v1/gx")
+router = APIRouter(prefix="/v1/expectation")
 
 
 # TODO: every expect fn should suggest adequate example payload
@@ -20,7 +20,7 @@ class GxFuncModel(str, Enum):
 
 
 @router.get("/try/{gx_func}")
-def try_expectations(
+def try_expectation(
         # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
         gx_func: GxFuncModel,
         database_schema: str,
@@ -42,7 +42,7 @@ def try_expectations(
 
 
 @router.post("/add/{gx_func}", status_code=status.HTTP_201_CREATED, )
-def add_expectations(
+def add_expectation(
         # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
         gx_func: GxFuncModel,
         database_schema: str,
