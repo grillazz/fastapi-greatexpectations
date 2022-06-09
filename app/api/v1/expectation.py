@@ -72,3 +72,7 @@ def add_expectations(
         suite_name=suite_name, suite_desc="", value=gx_suite.to_json_dict()
     )
     expectation_store.save(sql_session)
+
+# TODO: get suite by id or name
+# TODO: get all suites
+
