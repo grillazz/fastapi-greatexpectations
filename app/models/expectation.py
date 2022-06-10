@@ -30,4 +30,3 @@ class ExpectationStore(Base):
     def find_by_name(cls, db: Session, suite_name: str):
         stmt = select(cls).where(cls.suite_name == suite_name)
         return db.execute(stmt).scalars().first()
-

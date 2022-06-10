@@ -32,6 +32,10 @@ from app.schemas.expectation import ExpectationSuiteSchema
 router = APIRouter(prefix="/v1/validation")
 
 
+def validate(db: SqlAlchemyDataset, suite: ExpectationSuiteSchema):
+    db.validate(expectation_suite=suite.value)
+
+
 @router.post("/run/{database_schema}/{schema_table}/{suite_name}")
 def run_validation(
     database_schema: str,
@@ -43,5 +47,7 @@ def run_validation(
     db = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
-    suite: ExpectationSuiteSchema = ExpectationStore.find_by_name(sql_session, suite_name)
+    suite: ExpectationSuiteSchema = ExpectationStore.find_by_name(
+        sql_session, suite_name
+    )
     return db.validate(expectation_suite=suite.value)
