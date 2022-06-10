@@ -10,7 +10,8 @@ from app.models.base import Base
 url = "postgresql://user:secret@db:5432/gxshakezz"
 
 # query_cache_size=0 will disable sqlalchemy cache
-engine = create_engine(url, echo=True, echo_pool=True, query_cache_size=0)
+# engine = create_engine(url, echo=True, echo_pool=True, query_cache_size=0)
+engine = create_engine(url, echo=True, echo_pool=True)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

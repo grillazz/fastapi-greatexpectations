@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db, get_db_session
 from app.models.expectation import ExpectationStore
+from app.schemas.expectation import ExpectationSuiteSchema
 
 router = APIRouter(prefix="/v1/expectation")
 
@@ -21,15 +22,15 @@ class GxFuncModel(str, Enum):
 
 @router.get("/try/{gx_func}")
 def try_expectation(
-        # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
-        gx_func: GxFuncModel,
-        database_schema: str,
-        schema_table: str,
-        sql_engine: Engine = Depends(get_db),
-        gx_mapping: dict = Body(
-            None,
-            description="pass parameters as json dict and in next step unpack to **mapping",
-        ),
+    # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
+    gx_func: GxFuncModel,
+    database_schema: str,
+    schema_table: str,
+    sql_engine: Engine = Depends(get_db),
+    gx_mapping: dict = Body(
+        None,
+        description="pass parameters as json dict and in next step unpack to **mapping",
+    ),
 ):
     # TODO: can be singleton ?
     db = SqlAlchemyDataset(
@@ -41,19 +42,22 @@ def try_expectation(
         return e.__repr__()
 
 
-@router.post("/add/{gx_func}", status_code=status.HTTP_201_CREATED, )
+@router.post(
+    "/add/{gx_func}",
+    status_code=status.HTTP_201_CREATED,
+)
 def add_expectation(
-        # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
-        gx_func: GxFuncModel,
-        database_schema: str,
-        schema_table: str,
-        suite_name: str,
-        sql_engine: Engine = Depends(get_db),
-        sql_session: Session = Depends(get_db_session),
-        gx_mapping: dict = Body(
-            None,
-            description="pass parameters as json dict and in next step unpack to **mapping",
-        ),
+    # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
+    gx_func: GxFuncModel,
+    database_schema: str,
+    schema_table: str,
+    suite_name: str,
+    sql_engine: Engine = Depends(get_db),
+    sql_session: Session = Depends(get_db_session),
+    gx_mapping: dict = Body(
+        None,
+        description="pass parameters as json dict and in next step unpack to **mapping",
+    ),
 ):
     # TODO: can be singleton ?
     db = SqlAlchemyDataset(
@@ -73,6 +77,14 @@ def add_expectation(
     )
     expectation_store.save(sql_session)
 
+
+@router.get("", response_model=ExpectationSuiteSchema)
+async def get_expectation(
+    suite_name: str,
+    sql_session: Session = Depends(get_db_session),
+):
+    return ExpectationStore.find_by_name(sql_session, suite_name)
+
+
 # TODO: get suite by id or name
 # TODO: get all suites
-

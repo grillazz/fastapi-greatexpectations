@@ -39,3 +39,5 @@
 #         self.batch_identifier = batch_identifier
 #         self.task_id = task_id
 #         self.value = value
+# TODO: validation model
+# TODO: validation meths to run as background tasks

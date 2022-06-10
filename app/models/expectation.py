@@ -1,8 +1,9 @@
 import uuid
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, select
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.ext.mutable import MutableDict
+from sqlalchemy.orm import Session
 
 from .base import Base
 
@@ -24,3 +25,9 @@ class ExpectationStore(Base):
         self.suite_name = suite_name
         self.suite_desc = suite_desc
         self.value = value
+
+    @classmethod
+    def find_by_name(cls, db: Session, suite_name: str):
+        stmt = select(cls).where(cls.suite_name == suite_name)
+        return db.execute(stmt).scalars().first()
+

@@ -27,33 +27,21 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db, get_db_session
 from app.models.expectation import ExpectationStore
-
+from app.schemas.expectation import ExpectationSuiteSchema
 
 router = APIRouter(prefix="/v1/validation")
 
 
 @router.post("/run/{database_schema}/{schema_table}/{suite_name}")
 def run_validation(
-        database_schema: str,
-        schema_table: str,
-        suite_name: str,
-        sql_engine: Engine = Depends(get_db),
-        sql_session: Session = Depends(get_db_session),
+    database_schema: str,
+    schema_table: str,
+    suite_name: str,
+    sql_engine: Engine = Depends(get_db),
+    sql_session: Session = Depends(get_db_session),
 ):
-    # TODO: can be singleton ?
     db = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
-
-    # TODO: if suite for name already exists in database get it and update ?
-    db.expectation_suite_name = suite_name
-    try:
-        eval(f"db.{gx_func}(**gx_mapping)")
-    except TypeError as e:
-        return e.__repr__()
-    # db.append_expectation()
-    gx_suite = db.get_expectation_suite(discard_failed_expectations=False)
-    expectation_store = ExpectationStore(
-        suite_name=suite_name, suite_desc="", value=gx_suite.to_json_dict()
-    )
-    expectation_store.save(sql_session)
+    suite: ExpectationSuiteSchema = ExpectationStore.find_by_name(sql_session, suite_name)
+    return db.validate(expectation_suite=suite.value)
