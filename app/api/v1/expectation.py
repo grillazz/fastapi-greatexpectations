@@ -1,6 +1,5 @@
 from enum import Enum
 
-# Query, Body as data class with slots with swagger docs ???
 from fastapi import APIRouter, Body, Depends, status
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy.engine import Engine
@@ -13,8 +12,6 @@ from app.schemas.expectation import ExpectationSuiteSchema
 router = APIRouter(prefix="/v1/expectation")
 
 
-# TODO: every expect fn should suggest adequate example payload
-# TODO: change this to smart model with expectation name and example parameters
 class GxFuncModel(str, Enum):
     expect_table_row_count_to_equal = "expect_table_row_count_to_equal"
     expect_table_column_count_to_be_between = "expect_table_column_count_to_be_between"
@@ -22,7 +19,6 @@ class GxFuncModel(str, Enum):
 
 @router.get("/try/{gx_func}")
 def try_expectation(
-    # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
     gx_func: GxFuncModel,
     database_schema: str,
     schema_table: str,
@@ -32,7 +28,6 @@ def try_expectation(
         description="pass parameters as json dict and in next step unpack to **mapping",
     ),
 ):
-    # TODO: can be singleton ?
     db = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
@@ -47,7 +42,6 @@ def try_expectation(
     status_code=status.HTTP_201_CREATED,
 )
 def add_expectation(
-    # should be validated as pydantic allow names or maybe dataclass with slots ??? 4 times faster than pydantic
     gx_func: GxFuncModel,
     database_schema: str,
     schema_table: str,
@@ -70,7 +64,7 @@ def add_expectation(
         eval(f"db.{gx_func}(**gx_mapping)")
     except TypeError as e:
         return e.__repr__()
-    # db.append_expectation()
+    # if suite existst db.append_expectation() and update existsing suite in database
     gx_suite = db.get_expectation_suite(discard_failed_expectations=False)
     expectation_store = ExpectationStore(
         suite_name=suite_name, suite_desc="", value=gx_suite.to_json_dict()
@@ -84,7 +78,3 @@ async def get_expectation(
     sql_session: Session = Depends(get_db_session),
 ):
     return ExpectationStore.find_by_name(sql_session, suite_name)
-
-
-# TODO: get suite by id or name
-# TODO: get all suites

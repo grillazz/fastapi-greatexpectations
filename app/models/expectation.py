@@ -9,7 +9,6 @@ from .base import Base
 
 
 class ExpectationStore(Base):
-    # TODO: add ge as schema
     __tablename__ = "expectation"
     id = Column(UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
     suite_name = Column(String, nullable=False, unique=False)

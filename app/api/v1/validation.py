@@ -1,26 +1,4 @@
-# TODO: add POST validation endpoint
-# TODO: get expectation suite from db
-# TODO: db.validation()
-
-# def validate(
-#         self,
-#         expectation_suite=expectation suite as JSON from db
-#         run_id=None,
-#         data_context=None,
-#         evaluation_parameters=None,
-#         catch_exceptions=True,
-#         result_format=None,
-#         only_return_failures=False,
-#         run_name=None,
-#         run_time=None,
-# ):
-#
-# run as background task
-# build model with find and validate meths
-from enum import Enum
-
-# Query, Body as data class with slots with swagger docs ???
-from fastapi import APIRouter, Body, Depends, status
+from fastapi import APIRouter, Depends
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
@@ -50,4 +28,5 @@ def run_validation(
     suite: ExpectationSuiteSchema = ExpectationStore.find_by_name(
         sql_session, suite_name
     )
+    # TODO: save validation result
     return db.validate(expectation_suite=suite.value)
