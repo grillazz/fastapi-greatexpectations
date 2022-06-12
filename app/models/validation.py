@@ -25,7 +25,9 @@ class ValidationStore(Base):
         db_schema: str,
         db_table: str,
         value: JSONB,
+        expectation_suite_id: UUID
     ):
         self.db_schema = db_schema
         self.db_table = db_table
         self.value = value
+        self.expectation_suite_id = expectation_suite_id

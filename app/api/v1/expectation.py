@@ -17,7 +17,7 @@ class GxFuncModel(str, Enum):
     expect_table_column_count_to_be_between = "expect_table_column_count_to_be_between"
 
 
-@router.get("/try/{gx_func}")
+@router.post("/try/{gx_func}")
 def try_expectation(
     gx_func: GxFuncModel,
     database_schema: str,
@@ -53,7 +53,6 @@ def add_expectation(
         description="pass parameters as json dict and in next step unpack to **mapping",
     ),
 ):
-    # TODO: can be singleton ?
     db = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
@@ -64,12 +63,12 @@ def add_expectation(
         eval(f"db.{gx_func}(**gx_mapping)")
     except TypeError as e:
         return e.__repr__()
-    # if suite existst db.append_expectation() and update existsing suite in database
+    # if suite exist db.append_expectation() and update existsing suite in database
     gx_suite = db.get_expectation_suite(discard_failed_expectations=False)
-    expectation_store = ExpectationStore(
+    expectation = ExpectationStore(
         suite_name=suite_name, suite_desc="", value=gx_suite.to_json_dict()
     )
-    expectation_store.save(sql_session)
+    expectation.save(sql_session)
 
 
 @router.get("", response_model=ExpectationSuiteSchema)
