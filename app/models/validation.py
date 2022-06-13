@@ -21,11 +21,7 @@ class ValidationStore(Base):
     )
 
     def __init__(
-        self,
-        db_schema: str,
-        db_table: str,
-        value: JSONB,
-        expectation_suite_id: UUID
+        self, db_schema: str, db_table: str, value: JSONB, expectation_suite_id: UUID
     ):
         self.db_schema = db_schema
         self.db_table = db_table

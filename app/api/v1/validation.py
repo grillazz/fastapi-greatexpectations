@@ -27,6 +27,9 @@ def run_validation(
     )
     validation_result = db.validate(expectation_suite=suite.value)
     validation = ValidationStore(
-        db_schema=database_schema, db_table=table_name, value=validation_result.to_json_dict(), expectation_suite_id=suite.id
+        db_schema=database_schema,
+        db_table=table_name,
+        value=validation_result.to_json_dict(),
+        expectation_suite_id=suite.id,
     )
     return validation.save(sql_session)
