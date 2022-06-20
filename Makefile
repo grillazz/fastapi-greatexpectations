@@ -43,3 +43,7 @@ feed_db: ## create database objects and insert data
 .PHONY: requirements
 requirements:	## Refresh requirements.txt from pipfile.lock
 	pipenv lock -r -d > requirements.txt
+
+.PHONY: test
+test:	## Run project tests
+	docker-compose run --rm app pytest
