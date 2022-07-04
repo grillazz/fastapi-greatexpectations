@@ -5,9 +5,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
+from app import config
 from app.models.base import Base
 
-url = "postgresql://user:secret@db:5432/gxshakezz"
+global_vars = config.get_settings()
+
+url: str = f"postgresql://{global_vars.sql_user}:{global_vars.postgres_password}@{global_vars.sql_host}:5432/{global_vars.sql_db}"
 
 engine = create_engine(url, echo=True, echo_pool=True)
 
