@@ -1,5 +1,13 @@
 # fastapi-greatexpectations
 
+[![developer](https://img.shields.io/badge/Dev-grillazz-green?style)](https://github.com/grillazz)
+![language](https://img.shields.io/badge/language-python-blue?style)
+[![license](https://img.shields.io/github/license/grillazz/fastapi-greatexpectations)](https://github.com/grillazz/fastapi-greatexpectations/blob/main/LICENSE)
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=grillazz.fastapi-greatexpectations")
+[![CI](https://img.shields.io/github/workflow/status/grillazz/fastapi-greatexpectations/Unit%20Tests/main)](https://github.com/grillazz/fastapi-greatexpectations/actions/workflows/build-and-test.yml)
+
+![fastapi-greatexpectations](/static/wunsz.jpg)
+
 In this place two personas William Shakespeare as [Data Feed](https://github.com/catherinedevlin/opensourceshakespeare)
 and Charles Dickens as [Data Validation](https://greatexpectations.io/expectations/)
 will be hosted by Almighty Monty Python as Service :)
