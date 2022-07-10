@@ -12,7 +12,13 @@ In this place two personas William Shakespeare as [Data Feed](https://github.com
 and Charles Dickens as [Data Validation](https://greatexpectations.io/expectations/)
 will be hosted by Almighty Monty Python as Service :)
 
-### How to Setup
+Can we be better prepared for expected unexpected philosophy ?
+The `expect the unexpected` philosophy leads to the freedom of
+choice and the freedom of others people judgment,
+creating a future full of possibilities, accepting that whatever will be,
+will be; the future's not ours to see, que será, será.
+
+### :cook: How to Set up project locally 
 
 To build , run and more... use magic of make help to play with this project.
 
@@ -132,59 +138,95 @@ up                   Run project with compose
    ```
 
 7. Try simple expectation `/v1/database/tables` endpoint
-
-  ```shell
+   ```shell
    curl -X 'POST' \
-  'http://0.0.0.0:8585/v1/expectation/try/expect_table_row_count_to_equal?database_schema=shakespeare&schema_table=chapter' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{}' 
-   ```
+   'http://0.0.0.0:8585/v1/expectation/try/expect_table_row_count_to_equal?database_schema=shakespeare&schema_table=chapter' \
+   -H 'accept: application/json' \
+   -H 'Content-Type: application/json' \
+   -d '{}' 
+    ```
 
-and get response error like below
+   and get response error like below
 
    ```json
    "TypeError(\"Dataset.expect_table_row_count_to_equal() missing 1 required positional argument: 'value'\")"
    ```
 
-so try again with expected value
+   so try again with expected value equal to 100
 
-  ```shell
-  curl -X 'POST' \
-  'http://0.0.0.0:8585/v1/expectation/try/expect_table_row_count_to_equal?database_schema=shakespeare&schema_table=chapter' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{"value":100}'
+   ```shell
+   curl -X 'POST' \
+   'http://0.0.0.0:8585/v1/expectation/try/expect_table_row_count_to_equal?database_schema=shakespeare&schema_table=chapter' \
+   -H 'accept: application/json' \
+   -H 'Content-Type: application/json' \
+   -d '{"value":100}'
+    ```
+   and get response like below with `200 OK` 
+   with information that expectation run with no success as observed value in table is equal to 945
+   ```json
+   {
+     "success": false,
+     "expectation_config": {
+       "_expectation_type": "expect_table_row_count_to_equal",
+       "_kwargs": {
+         "value": 100,
+         "result_format": "BASIC"
+       },
+       "_raw_kwargs": null,
+       "meta": {},
+       "success_on_last_run": null,
+       "_ge_cloud_id": null,
+       "_expectation_context": null
+     },
+     "result": {
+       "observed_value": 945
+     },
+     "meta": {},
+     "exception_info": {
+       "raised_exception": false,
+       "exception_traceback": null,
+       "exception_message": null
+     }
+   }
+   ```
+   one more try with expected value equal to 945
+     ```shell
+     curl -X 'POST' \
+     'http://0.0.0.0:8585/v1/expectation/try/expect_table_row_count_to_equal?database_schema=shakespeare&schema_table=chapter' \
+     -H 'accept: application/json' \
+     -H 'Content-Type: application/json' \
+     -d '{"value":945}'
+      ```
+   and get response like below with `200 OK` with information that expectation run with success as expected value meet observed value
+   ```json
+   {
+     "include_rendered_content": false,
+     "success": true,
+     "expectation_config": {
+       "_expectation_type": "expect_table_row_count_to_equal",
+       "_kwargs": {
+         "value": 945,
+         "result_format": "BASIC"
+       },
+       "_raw_kwargs": null,
+       "meta": {},
+       "success_on_last_run": null,
+       "_ge_cloud_id": null,
+       "_expectation_context": null,
+       "_include_rendered_content": false
+     },
+     "result": {
+       "observed_value": 945
+     },
+     "meta": {},
+     "exception_info": {
+       "raised_exception": false,
+       "exception_traceback": null,
+       "exception_message": null
+     }
+   }
    ```
 
-and get response like below with `200 OK`
-
-   ```json
-{
-  "success": false,
-  "expectation_config": {
-    "_expectation_type": "expect_table_row_count_to_equal",
-    "_kwargs": {
-      "value": 100,
-      "result_format": "BASIC"
-    },
-    "_raw_kwargs": null,
-    "meta": {},
-    "success_on_last_run": null,
-    "_ge_cloud_id": null,
-    "_expectation_context": null
-  },
-  "result": {
-    "observed_value": 945
-  },
-  "meta": {},
-  "exception_info": {
-    "raised_exception": false,
-    "exception_traceback": null,
-    "exception_message": null
-  }
-}
-```
 
 8. Save expectation ...
 9. Run validation ...
@@ -194,12 +236,7 @@ and get response like below with `200 OK`
 
 Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness,
 powerfulness and speed. There is [FastAPI](https://fastapi.tiangolo.com/) (modern, fast (high-performance),
-web framework for building APIs with Python 3.8+ based on standard Python type hints.)
+web framework for building APIs with Python 3.9+ based on standard Python type hints.)
 
 Hope you enjoy it.
 
-Can we be better prepared for expected unexpected philosophy ?
-The “expect the unexpected” philosophy leads to the freedom of
-choice and the freedom of others people judgment,
-creating a future full of possibilities, accepting that whatever will be,
-will be; the future's not ours to see, que será, será.

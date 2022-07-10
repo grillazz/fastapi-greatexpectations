@@ -12,10 +12,10 @@ jobs:
       fail-fast: false
 
     services:
-      sqldb:
+      postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: user
+          # must specify password for PG Docker container image, see: https://registry.hub.docker.com/_/postgres?tab=description&page=1&name=10
           POSTGRES_PASSWORD: secret
           POSTGRES_DB: testdb
         ports:
@@ -25,6 +25,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Feed database
+        run: psql -d postgresql://postgres@localhost/testdb -f shakespeare.sql
+        working-directory: ./db
+        env:
+          PGPASSWORD: secret
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -38,7 +43,7 @@ jobs:
           PYTHONUNBUFFERED: 1
           SQL_DB: testdb
           SQL_HOST: 127.0.0.1
-          SQL_USER: user
+          SQL_USER: postgres
           POSTGRES_PASSWORD: secret
           PGPASSWORD: secret
 

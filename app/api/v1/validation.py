@@ -19,13 +19,13 @@ def run_validation(
     sql_engine: Engine = Depends(get_db),
     sql_session: Session = Depends(get_db_session),
 ):
-    db = SqlAlchemyDataset(
+    data_set = SqlAlchemyDataset(
         table_name=table_name, engine=sql_engine, schema=database_schema
     )
     suite: ExpectationSuiteSchema = ExpectationStore.find_by_name(
         sql_session, suite_name
     )
-    validation_result = db.validate(expectation_suite=suite.value)
+    validation_result = data_set.validate(expectation_suite=suite.value)  # type: ignore
     validation = ValidationStore(
         db_schema=database_schema,
         db_table=table_name,

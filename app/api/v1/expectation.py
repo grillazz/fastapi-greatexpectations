@@ -28,11 +28,11 @@ def try_expectation(
         description="pass parameters as json dict and in next step unpack to **mapping",
     ),
 ):
-    db = SqlAlchemyDataset(
+    data_set = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
     try:
-        return eval(f"db.{gx_func}(**gx_mapping)")
+        return eval(f"data_set.{gx_func}(**gx_mapping)")
     except TypeError as e:
         return e.__repr__()
 
@@ -53,18 +53,18 @@ def add_expectation(
         description="pass parameters as json dict and in next step unpack to **mapping",
     ),
 ):
-    db = SqlAlchemyDataset(
+    data_set = SqlAlchemyDataset(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
 
     # TODO: if suite for name already exists in database get it and update ?
-    db.expectation_suite_name = suite_name
+    data_set.expectation_suite_name = suite_name
     try:
-        eval(f"db.{gx_func}(**gx_mapping)")
+        eval(f"data_set.{gx_func}(**gx_mapping)")
     except TypeError as e:
         return e.__repr__()
     # if suite exist db.append_expectation() and update existsing suite in database
-    gx_suite = db.get_expectation_suite(discard_failed_expectations=False)
+    gx_suite = data_set.get_expectation_suite(discard_failed_expectations=False)
     expectation = ExpectationStore(
         suite_name=suite_name, suite_desc="", value=gx_suite.to_json_dict()
     )
