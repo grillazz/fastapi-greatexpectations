@@ -25,18 +25,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Feed database
+      - name: <--- Feed Database --->
         run: psql -d postgresql://postgres@localhost/testdb -f shakespeare.sql
         working-directory: ./db
         env:
           PGPASSWORD: secret
-      - name: Set up Python
+      - name: <--- Set up python --->
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install required libs
+      - name: <--- Install project dependencies --->
         run: pip install -r requirements.txt
-      - name: Run tests
+      - name: <--- Run tests --->
         run: pytest
         env:
           PYTHONDONTWRITEBYTECODE: 1

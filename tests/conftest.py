@@ -10,6 +10,6 @@ from app.main import app
 def client() -> Generator:
     with TestClient(
         app=app,
-        base_url="http://testserver/v1",
+        base_url="http://testserver",
     ) as test_client:
         yield test_client
