@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
     (
             (
                     {},
-                    "TypeError(\"Dataset.expect_table_row_count_to_equal() missing 1 required positional argument: 'value'\")",
+                    "expect_table_row_count_to_equal() missing 1 required positional argument: 'value'",
                     status.HTTP_200_OK,
             ),
     ),
@@ -21,7 +21,7 @@ def test_try_expectation_empty_payload(
         json=payload
     )
     assert response.status_code == status_code
-    assert response.json() == response_data
+    assert response_data in response.text
 
 
 @pytest.mark.parametrize(
