@@ -99,7 +99,7 @@ def test_try_expectation(
                 "suite_name": "chapter_suite",
                 "suite_desc": "",
                 "value": {
-                    "meta": {"great_expectations_version": "0.15.15"},
+                    "meta": {"great_expectations_version": "0.15.17"},
                     "ge_cloud_id": None,
                     "expectations": [
                         {
