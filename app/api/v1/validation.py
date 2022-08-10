@@ -11,7 +11,7 @@ from app.schemas.expectation import ExpectationSuiteSchema
 router = APIRouter(prefix="/v1/validation")
 
 
-@router.post("/run/{database_schema}/{schema_table}/{suite_name}")
+@router.post("/run/{database_schema}/{table_name}/{suite_name}")
 def run_validation(
     database_schema: str,
     table_name: str,

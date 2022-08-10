@@ -40,6 +40,7 @@ def try_expectation(
 @router.post(
     "/add/{gx_func}",
     status_code=status.HTTP_201_CREATED,
+    response_model=ExpectationSuiteSchema,
 )
 def add_expectation(
     gx_func: GxFuncModel,
@@ -63,12 +64,13 @@ def add_expectation(
         eval(f"data_set.{gx_func}(**gx_mapping)")
     except TypeError as e:
         return e.__repr__()
-    # if suite exist db.append_expectation() and update existsing suite in database
+    # TODO: if suite exist db.append_expectation() and update existing suite in database
     gx_suite = data_set.get_expectation_suite(discard_failed_expectations=False)
     expectation = ExpectationStore(
         suite_name=suite_name, suite_desc="", value=gx_suite.to_json_dict()
     )
     expectation.save(sql_session)
+    return expectation
 
 
 @router.get("", response_model=ExpectationSuiteSchema)
