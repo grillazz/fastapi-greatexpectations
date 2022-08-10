@@ -18,7 +18,7 @@ choice and the freedom of others people judgment,
 creating a future full of possibilities, accepting that whatever will be,
 will be; the future's not ours to see, que será, será.
 
-### :cook: How to Set up project locally 
+### :cook: How to Set up project locally
 
 To build , run and more... use magic of make help to play with this project.
 
@@ -161,7 +161,7 @@ up                   Run project with compose
    -H 'Content-Type: application/json' \
    -d '{"value":100}'
     ```
-   and get response like below with `200 OK` 
+   and get response like below with `200 OK`
    with information that expectation run with no success as observed value in table is equal to 945
    ```json
    {
@@ -197,7 +197,8 @@ up                   Run project with compose
      -H 'Content-Type: application/json' \
      -d '{"value":945}'
       ```
-   and get response like below with `200 OK` with information that expectation run with success as expected value meet observed value
+   and get response like below with `200 OK` with information that expectation run with success as expected value meet
+   observed value
    ```json
    {
      "include_rendered_content": false,
@@ -228,15 +229,44 @@ up                   Run project with compose
    ```
 
 
-8. Save expectation ...
-9. Run validation ...
-10. list of available expectations https://greatexpectations.io/expectations/
+8. Save expectation `/v1/validation/run/{database_schema}/{table_name}/{suite_name}` endpoint
+   ```shell
+   curl -X 'POST' \
+   'http://0.0.0.0:8585/v1/expectation/add/expect_table_row_count_to_equal?database_schema=shakespeare&schema_table=chapter&suite_name=chapter_suite' \
+   -H 'accept: application/json' \
+   -H 'Content-Type: application/json' \
+   -d '{"value":945}'
+   ```
+   and get response like below with `201`
+   ```json
+   {
+     "id": "40ef18ac-14e0-477e-9c7f-4b4830d29980",
+     "suite_name": "chapter_suite_1",
+     "suite_desc": "",
+     "value": {
+       "meta": {
+         "great_expectations_version": "0.15.15"
+       },
+       "ge_cloud_id": null,
+       "expectations": [
+         {
+           "meta": {},
+           "kwargs": {
+             "value": 945
+           },
+           "expectation_type": "expect_table_row_count_to_equal"
+         }
+       ],
+       "data_asset_type": "Dataset",
+       "expectation_suite_name": "chapter_suite_1"
+     }
+   }
+   ```
+10. Run validation ...
+11. list of available expectations https://greatexpectations.io/expectations/
 
 ### Backbone
 
-Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness,
-powerfulness and speed. There is [FastAPI](https://fastapi.tiangolo.com/) (modern, fast (high-performance),
-web framework for building APIs with Python 3.9+ based on standard Python type hints.)
-
+...
 Hope you enjoy it.
 

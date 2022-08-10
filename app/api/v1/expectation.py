@@ -40,6 +40,7 @@ def try_expectation(
 @router.post(
     "/add/{gx_func}",
     status_code=status.HTTP_201_CREATED,
+    response_model=ExpectationSuiteSchema,
 )
 def add_expectation(
     gx_func: GxFuncModel,
@@ -69,6 +70,7 @@ def add_expectation(
         suite_name=suite_name, suite_desc="", value=gx_suite.to_json_dict()
     )
     expectation.save(sql_session)
+    return expectation
 
 
 @router.get("", response_model=ExpectationSuiteSchema)
