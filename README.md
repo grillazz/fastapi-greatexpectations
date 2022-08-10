@@ -137,7 +137,7 @@ up                   Run project with compose
          ]
    ```
 
-7. Try simple expectation `/v1/database/tables` endpoint
+7. Try simple expectation `/v1/expectation/try/{gx_func}` endpoint
    ```shell
    curl -X 'POST' \
    'http://0.0.0.0:8585/v1/expectation/try/expect_table_row_count_to_equal?database_schema=shakespeare&schema_table=chapter' \
@@ -229,7 +229,7 @@ up                   Run project with compose
    ```
 
 
-8. Save expectation `/v1/validation/run/{database_schema}/{table_name}/{suite_name}` endpoint
+8. Save expectation `/v1/expectation/add/{gx_func}` endpoint
    ```shell
    curl -X 'POST' \
    'http://0.0.0.0:8585/v1/expectation/add/expect_table_row_count_to_equal?database_schema=shakespeare&schema_table=chapter&suite_name=chapter_suite' \
