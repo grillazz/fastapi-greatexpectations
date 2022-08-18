@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from uuid import UUID
-
 from typing import Any, Dict, List
+from uuid import UUID
 
 from pydantic import BaseModel, Field
 
