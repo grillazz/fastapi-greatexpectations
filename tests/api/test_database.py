@@ -30,7 +30,7 @@ def test_get_schemas(client: TestClient, response_data: dict, status_code: int):
 def test_get_tables(client: TestClient, response_data: dict, status_code: int):
     response = client.get("/v1/database/tables?sql_db_schema=shakespeare")
     assert response.status_code == status_code
-    assert response.json() == response_data
+    assert sorted(response.json()) == sorted(response_data)
 
 
 @pytest.mark.parametrize(
