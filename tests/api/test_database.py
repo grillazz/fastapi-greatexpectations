@@ -22,7 +22,7 @@ def test_get_schemas(client: TestClient, response_data: dict, status_code: int):
     "response_data, status_code",
     (
         (
-            ["wordform", "work", "chapter", "character", "character_work", "paragraph"],
+            ['paragraph', 'wordform', 'character', 'character_work', 'work', 'chapter'],
             status.HTTP_200_OK,
         ),
     ),
@@ -30,7 +30,7 @@ def test_get_schemas(client: TestClient, response_data: dict, status_code: int):
 def test_get_tables(client: TestClient, response_data: dict, status_code: int):
     response = client.get("/v1/database/tables?sql_db_schema=shakespeare")
     assert response.status_code == status_code
-    assert response.json() == response_data
+    assert sorted(response.json()) == sorted(response_data)
 
 
 @pytest.mark.parametrize(
@@ -85,7 +85,7 @@ def test_get_tables(client: TestClient, response_data: dict, status_code: int):
                         "_expect_unicode_error": None,
                         "_warn_on_bytestring": False,
                     },
-                    "nullable": False,
+                    "nullable": True,
                     "default": None,
                     "autoincrement": False,
                     "comment": None,

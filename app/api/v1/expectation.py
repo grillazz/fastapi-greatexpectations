@@ -15,6 +15,7 @@ router = APIRouter(prefix="/v1/expectation")
 class GxFuncModel(str, Enum):
     expect_table_row_count_to_equal = "expect_table_row_count_to_equal"
     expect_table_column_count_to_be_between = "expect_table_column_count_to_be_between"
+    expect_column_values_to_not_be_null = "expect_column_values_to_not_be_null"
 
 
 @router.post("/try/{gx_func}")

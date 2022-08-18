@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends
+import logging
+
+from fastapi import APIRouter, Depends, status
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
@@ -8,10 +10,16 @@ from app.models.expectation import ExpectationStore
 from app.models.validation import ValidationStore
 from app.schemas.expectation import ExpectationSuiteSchema
 
+logger = logging.getLogger("uvicorn")
+
 router = APIRouter(prefix="/v1/validation")
 
 
-@router.post("/run/{database_schema}/{table_name}/{suite_name}")
+# TODO: add response model
+@router.post(
+    "/run/{database_schema}/{table_name}/{suite_name}",
+    status_code=status.HTTP_201_CREATED,
+)
 def run_validation(
     database_schema: str,
     table_name: str,
@@ -32,4 +40,5 @@ def run_validation(
         value=validation_result.to_json_dict(),
         expectation_suite_id=suite.id,
     )
-    return validation.save(sql_session)
+    validation.save(sql_session)
+    return validation
