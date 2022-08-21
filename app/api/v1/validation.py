@@ -21,11 +21,11 @@ router = APIRouter(prefix="/v1/validation")
     status_code=status.HTTP_201_CREATED,
 )
 def run_validation(
-    database_schema: str,
-    table_name: str,
-    suite_name: str,
-    sql_engine: Engine = Depends(get_db),
-    sql_session: Session = Depends(get_db_session),
+        database_schema: str,
+        table_name: str,
+        suite_name: str,
+        sql_engine: Engine = Depends(get_db),
+        sql_session: Session = Depends(get_db_session),
 ):
     data_set = SqlAlchemyDataset(
         table_name=table_name, engine=sql_engine, schema=database_schema
@@ -42,3 +42,13 @@ def run_validation(
     )
     validation.save(sql_session)
     return validation
+
+
+@router.get("",)
+def get_validations(
+        database_schema: str,
+        table_name: str,
+        sql_session: Session = Depends(get_db_session),
+):
+    return ValidationStore.find_all(sql_session, database_schema, table_name)
+
