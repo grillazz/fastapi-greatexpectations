@@ -22,7 +22,7 @@ def test_get_schemas(client: TestClient, response_data: dict, status_code: int):
     "response_data, status_code",
     (
         (
-            ['paragraph', 'wordform', 'character', 'character_work', 'work', 'chapter'],
+            ["paragraph", "wordform", "character", "character_work", "work", "chapter"],
             status.HTTP_200_OK,
         ),
     ),

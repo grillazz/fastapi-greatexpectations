@@ -9,8 +9,8 @@ from app.database import get_db, get_db_session
 from app.models.expectation import ExpectationStore
 from app.models.validation import ValidationStore
 from app.schemas.expectation import ExpectationSuiteSchema
+from app.schemas.validation import ValidationResponse
 
-logger = logging.getLogger("uvicorn")
 
 router = APIRouter(prefix="/v1/validation")
 
@@ -42,3 +42,12 @@ def run_validation(
     )
     validation.save(sql_session)
     return validation
+
+
+@router.get("", response_model=list[ValidationResponse])
+def get_validations(
+    database_schema: str,
+    table_name: str,
+    sql_session: Session = Depends(get_db_session),
+):
+    return ValidationStore.find_all(sql_session, database_schema, table_name)
