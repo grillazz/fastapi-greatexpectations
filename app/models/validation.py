@@ -31,5 +31,4 @@ class ValidationStore(Base):
     @classmethod
     def find_all(cls, session, db_schema: str, db_table: str):
         stmt = select(cls).where(cls.db_schema == db_schema, cls.db_table == db_table)
-        return session.execute(stmt).all()
-
+        return session.execute(stmt).scalars().all()

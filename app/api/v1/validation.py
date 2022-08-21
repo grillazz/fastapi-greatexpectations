@@ -9,8 +9,8 @@ from app.database import get_db, get_db_session
 from app.models.expectation import ExpectationStore
 from app.models.validation import ValidationStore
 from app.schemas.expectation import ExpectationSuiteSchema
+from app.schemas.validation import ValidationResponse
 
-logger = logging.getLogger("uvicorn")
 
 router = APIRouter(prefix="/v1/validation")
 
@@ -21,11 +21,11 @@ router = APIRouter(prefix="/v1/validation")
     status_code=status.HTTP_201_CREATED,
 )
 def run_validation(
-        database_schema: str,
-        table_name: str,
-        suite_name: str,
-        sql_engine: Engine = Depends(get_db),
-        sql_session: Session = Depends(get_db_session),
+    database_schema: str,
+    table_name: str,
+    suite_name: str,
+    sql_engine: Engine = Depends(get_db),
+    sql_session: Session = Depends(get_db_session),
 ):
     data_set = SqlAlchemyDataset(
         table_name=table_name, engine=sql_engine, schema=database_schema
@@ -44,11 +44,10 @@ def run_validation(
     return validation
 
 
-@router.get("",)
+@router.get("", response_model=list[ValidationResponse])
 def get_validations(
-        database_schema: str,
-        table_name: str,
-        sql_session: Session = Depends(get_db_session),
+    database_schema: str,
+    table_name: str,
+    sql_session: Session = Depends(get_db_session),
 ):
     return ValidationStore.find_all(sql_session, database_schema, table_name)
-
