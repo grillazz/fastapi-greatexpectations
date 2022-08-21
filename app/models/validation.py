@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import Column, ForeignKey, String
+from sqlalchemy import Column, ForeignKey, String, select
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.ext.mutable import MutableDict
 
@@ -27,3 +27,9 @@ class ValidationStore(Base):
         self.db_table = db_table
         self.value = value
         self.expectation_suite_id = expectation_suite_id
+
+    @classmethod
+    def find_all(cls, session, db_schema: str, db_table: str):
+        stmt = select(cls).where(cls.db_schema == db_schema, cls.db_table == db_table)
+        return session.execute(stmt).all()
+
