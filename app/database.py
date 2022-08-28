@@ -34,8 +34,8 @@ def get_db_session() -> Generator:
 
 
 # Dependency
-def get_db():
-    return engine
+def get_db() -> Generator:
+    yield engine
 
 
 def start_db():
