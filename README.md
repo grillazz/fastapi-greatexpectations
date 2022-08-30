@@ -245,7 +245,7 @@ up                   Run project with compose
      "suite_desc": "",
      "value": {
        "meta": {
-         "great_expectations_version": "0.15.15"
+         "great_expectations_version": "0.15.19"
        },
        "ge_cloud_id": null,
        "expectations": [
@@ -262,7 +262,85 @@ up                   Run project with compose
      }
    }
    ```
-10. Run validation ...
+
+
+9. Run validation `/v1/validation/run/{database_schema}/{table_name}/{suite_name}` endpoint
+   ```shell
+   curl -X 'POST' \
+     'http://0.0.0.0:8585/v1/validation/run/shakespeare/chapter/chapter_suite' \
+     -H 'accept: application/json'
+   ```
+   and get response like below with `201`
+
+
+10. Get validation results `/v1/validation` endpoint
+      ```shell
+      curl -X 'GET' \
+        'http://0.0.0.0:8585/v1/validation?database_schema=shakespeare&table_name=chapter' \
+        -H 'accept: application/json'
+      ```
+    and get response like below with `200` with list of validation results in response
+    ```json
+     [
+      {
+       "value": {
+         "meta": {
+           "run_id": {
+             "run_name": null,
+             "run_time": "2022-08-21T15:52:46.263216+00:00"
+           },
+           "batch_kwargs": {
+             "ge_batch_id": "4cd3db9e-2169-11ed-bcba-0242ac180003"
+           },
+           "batch_markers": {},
+           "validation_time": "20220821T155246.263096Z",
+           "batch_parameters": {},
+           "expectation_suite_meta": {
+             "great_expectations_version": "0.15.19"
+           },
+           "expectation_suite_name": "chapter_suite",
+           "great_expectations_version": "0.15.19"
+         },
+         "results": [
+           {
+             "meta": {},
+             "result": {
+               "observed_value": 945
+             },
+             "success": true,
+             "exception_info": {
+               "raised_exception": false,
+               "exception_message": null,
+               "exception_traceback": null
+             },
+             "expectation_config": {
+               "meta": {},
+               "kwargs": {
+                 "value": 945
+               },
+               "expectation_type": "expect_table_row_count_to_equal"
+             }
+           }
+         ],
+         "success": true,
+         "statistics": {
+           "success_percent": 100,
+           "evaluated_expectations": 1,
+           "successful_expectations": 1,
+           "unsuccessful_expectations": 0
+         },
+         "evaluation_parameters": {}
+       },
+       "db_schema": "shakespeare",
+       "id": "8e1f6b6a-14a6-48ba-b724-2363f8949dbe",
+       "db_table": "chapter",
+       "expectation_suite_id": "5e4d8e0e-8bb3-4c84-9f2d-86abb981872a"
+     },
+     ...
+    ] 
+    ```
+
+
 11. list of available expectations https://greatexpectations.io/expectations/
 
 ### Backbone
