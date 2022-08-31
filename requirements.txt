@@ -9,7 +9,7 @@
 # requirements. To emit only development requirements, pass "--dev-only".
 
 -i https://pypi.org/simple
-aiofiles==0.8.0; python_version >= '3.6' and python_version < '4.0'
+aiofiles==0.8.0; python_version >= '3.6' and python_full_version < '4.0.0'
 aiosqlite==0.17.0; python_version >= '3.6'
 altair==4.2.0; python_version >= '3.7'
 anyio==3.6.1; python_full_version >= '3.6.2'
@@ -87,7 +87,7 @@ packaging==21.3
 pandas==1.5.0rc0; python_version >= '3.8'
 pandocfilters==1.5.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 parso==0.8.3; python_version >= '3.6'
-pathspec==0.9.0
+pathspec==0.10.0; python_version >= '3.7'
 pexpect==4.8.0; sys_platform != 'win32'
 pg-activity==3.0.0a1
 pickleshare==0.7.5
@@ -102,7 +102,7 @@ pure-eval==0.2.2
 py==1.11.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 pycodestyle==2.9.1; python_version >= '3.6'
 pycparser==2.21
-pydantic==1.10.0b1; python_version >= '3.7'
+pydantic==1.10.0; python_version >= '3.7'
 pyflakes==2.5.0; python_version >= '3.6'
 pygments==2.13.0; python_version >= '3.6'
 pyparsing==2.4.7; python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'
@@ -112,10 +112,10 @@ python-dateutil==2.8.2; python_version >= '2.7' and python_version not in '3.0, 
 pytz-deprecation-shim==0.1.0.post0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'
 pytz==2022.2.1
 pyzmq==23.2.1; python_version >= '3.6'
-requests==2.28.1; python_version >= '3.7' and python_version < '4.0'
+requests==2.28.1; python_version >= '3.7' and python_full_version < '4.0.0'
 rich==12.5.1
 ruamel.yaml==0.17.17; python_version >= '3'
-ruff==0.0.19
+ruff==0.0.20
 scipy==1.9.1; python_version < '3.12' and python_version >= '3.8'
 send2trash==1.8.1b0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 setuptools==65.3.0; python_version >= '3.7'
@@ -129,7 +129,7 @@ starlette==0.19.1; python_version >= '3.6'
 termcolor==1.1.0
 terminado==0.15.0; python_version >= '3.7'
 tinycss2==1.1.1; python_version >= '3.6'
-tomli==2.0.1; python_version < '3.11'
+tomli==2.0.1; python_version >= '3.7'
 toolz==0.12.0; python_version >= '3.5'
 tornado==6.2; python_version >= '3.7'
 tqdm==4.64.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
@@ -137,7 +137,7 @@ traitlets==5.3.0; python_version >= '3.7'
 typing-extensions==4.3.0; python_version >= '3.7'
 tzdata==2022.2; python_version >= '3.6'
 tzlocal==4.2; python_version >= '3.6'
-urllib3==1.26.12; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5' and python_version < '4.0'
+urllib3==1.26.12; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5' and python_full_version < '4.0.0'
 uvicorn==0.18.3
 wcwidth==0.2.5
 webencodings==0.5.1
