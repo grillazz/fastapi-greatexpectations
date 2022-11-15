@@ -119,7 +119,7 @@ ruamel.yaml==0.17.17; python_version >= '3'
 ruff==0.0.24
 scipy==1.9.1; python_version < '3.12' and python_version >= '3.8'
 send2trash==1.8.1b0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
-setuptools==65.3.0; python_version >= '3.7'
+setuptools==65.5.1; python_version >= '3.7'
 six==1.16.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 sniffio==1.3.0; python_version >= '3.7'
 soupsieve==2.3.2.post1; python_version >= '3.6'
