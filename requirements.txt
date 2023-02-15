@@ -126,7 +126,7 @@ soupsieve==2.3.2.post1; python_version >= '3.6'
 sqlacodegen==3.0.0rc1
 sqlalchemy==1.4.40
 stack-data==0.5.0
-starlette==0.19.1; python_version >= '3.6'
+starlette==0.25.0; python_version >= '3.6'
 termcolor==1.1.0
 terminado==0.15.0; python_version >= '3.7'
 tinycss2==1.1.1; python_version >= '3.6'
