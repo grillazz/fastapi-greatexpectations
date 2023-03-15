@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fastapi-greatexpectations"
+version = "0.0.1"
+description = ""
+authors = ["Jakub Miazek <the@grillazz.com>"]
+readme = "README.md"
+packages = [{include = "fastapi_greatexpectations"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = { extras = ["all"], version = "^0.94.1" }
+great-expectations = "^0.16.0"
+sqlacodegen = "^2.3.0.post1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
