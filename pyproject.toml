@@ -11,6 +11,7 @@ python = "^3.11"
 fastapi = { extras = ["all"], version = "^0.94.1" }
 great-expectations = "^0.16.0"
 sqlacodegen = "^2.3.0.post1"
+pytest = "^7.2.2"
 
 
 [build-system]
