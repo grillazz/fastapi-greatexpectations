@@ -1,6 +1,6 @@
 from enum import Enum
 
-from fastapi import APIRouter, Body, Depends, status
+from fastapi import APIRouter, Body, Depends, status, Query
 from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
@@ -21,8 +21,8 @@ class GxFuncModel(str, Enum):
 @router.post("/try/{gx_func}")
 def try_expectation(
     gx_func: GxFuncModel,
-    database_schema: str,
-    schema_table: str,
+    database_schema: str = Query(description="database schema name", default="shakespeare"),
+    schema_table: str = Query(description="schema table name", default="chapter"),
     sql_engine: Engine = Depends(get_db),
     gx_mapping: dict = Body(
         None,
@@ -33,7 +33,7 @@ def try_expectation(
         table_name=schema_table, engine=sql_engine, schema=database_schema
     )
     try:
-        return eval(f"data_set.{gx_func}(**gx_mapping)")
+        return eval(f"data_set.{gx_func.value}(**gx_mapping)")
     except TypeError as e:
         return e.__repr__()
 
@@ -62,7 +62,7 @@ def add_expectation(
     # TODO: if suite for name already exists in database get it and update ?
     data_set.expectation_suite_name = suite_name
     try:
-        eval(f"data_set.{gx_func}(**gx_mapping)")
+        eval(f"data_set.{gx_func.value}(**gx_mapping)")
     except TypeError as e:
         return e.__repr__()
     # TODO: if suite exist db.append_expectation() and update existing suite in database

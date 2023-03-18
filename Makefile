@@ -46,4 +46,4 @@ requirements:	## Refresh requirements.txt from pipfile.lock
 
 .PHONY: test
 test:	## Run project tests
-	docker-compose run --rm app poetry run pytest
+	docker-compose run --rm app pytest
