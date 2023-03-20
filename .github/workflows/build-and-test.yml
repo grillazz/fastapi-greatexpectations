@@ -1,15 +1,23 @@
-
 name: Unit Tests
 
-on: [pull_request]
+on: [ pull_request ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.10"]
+        python-version: [ "3.11" ]
       fail-fast: false
+
+    env:
+      PYTHONDONTWRITEBYTECODE: 1
+      PYTHONUNBUFFERED: 1
+      SQL_DB: testdb
+      SQL_HOST: 127.0.0.1
+      SQL_USER: postgres
+      POSTGRES_PASSWORD: secret
+      PGPASSWORD: secret
 
     services:
       postgres:
@@ -24,26 +32,31 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2
+      - name: <--- Checkout Codebase --->
+        uses: actions/checkout@v3
       - name: <--- Feed Database --->
-        run: psql -d postgresql://postgres@localhost/testdb -f shakespeare.sql
-        working-directory: ./db
+        run: psql -d postgresql://postgres@localhost/testdb -f ./db/shakespeare.sql
         env:
           PGPASSWORD: secret
-      - name: <--- Set up python --->
-        uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: <--- Install project dependencies --->
-        run: pip install -r requirements.txt
-      - name: <--- Run tests --->
-        run: pytest
-        env:
-          PYTHONDONTWRITEBYTECODE: 1
-          PYTHONUNBUFFERED: 1
-          SQL_DB: testdb
-          SQL_HOST: 127.0.0.1
-          SQL_USER: postgres
-          POSTGRES_PASSWORD: secret
-          PGPASSWORD: secret
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.4.0
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-3.11-${{ hashFiles('**/poetry.lock') }}
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      - name: Test Code
+        run: poetry run pytest
+
+
 
