@@ -35,7 +35,7 @@ jobs:
       - name: <--- Checkout Codebase --->
         uses: actions/checkout@v3
       - name: <--- Feed Database --->
-        run: pwd & ls -l
+        run: psql -d postgresql://postgres@localhost/testdb -f ./db/shakespeare.sql
         env:
           PGPASSWORD: secret
       - name: Set up Python
