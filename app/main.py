@@ -4,6 +4,9 @@ from app.api.v1.database import router as database_router
 from app.api.v1.expectation import router as gx_router
 from app.api.v1.validation import router as val_router
 from app.database import start_db
+from app.logging import AppLogger
+
+logger = AppLogger.__call__().get_logger()
 
 app = FastAPI(title="Otoroshi API")
 

@@ -21,7 +21,9 @@ class GxFuncModel(str, Enum):
 @router.post("/try/{gx_func}")
 def try_expectation(
     gx_func: GxFuncModel,
-    database_schema: str = Query(description="database schema name", default="shakespeare"),
+    database_schema: str = Query(
+        description="database schema name", default="shakespeare"
+    ),
     schema_table: str = Query(description="schema table name", default="chapter"),
     sql_engine: Engine = Depends(get_db),
     gx_mapping: dict = Body(
