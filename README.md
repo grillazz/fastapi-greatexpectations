@@ -75,7 +75,7 @@ up                   Run project with compose
      "chapter"
    ]
     ```
-6. Get list of column for requested table `/v1/database/tables` endpoint
+6. Get columns for requested table `/v1/database/columns` endpoint
     ```shell
     curl -X 'GET' 'http://0.0.0.0:8585/v1/database/columns?database_schema=shakespeare&schema_table=chapter' -H 'accept: application/json'
     ```
