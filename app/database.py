@@ -33,10 +33,10 @@ def get_db_session() -> Generator:
         session.close()
 
 
+
 # Dependency
 def get_db() -> Generator:
     yield engine
-
 
 def start_db():
     Base.metadata.create_all(engine)
