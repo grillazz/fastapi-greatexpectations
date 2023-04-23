@@ -11,7 +11,6 @@ from app.models.validation import ValidationStore
 from app.schemas.expectation import ExpectationSuiteSchema
 from app.schemas.validation import ValidationResponse
 
-
 router = APIRouter(prefix="/v1/validation")
 
 
