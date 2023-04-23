@@ -3,7 +3,6 @@ import logging
 from rich.console import Console
 from rich.logging import RichHandler
 
-
 from app.utils import SingletonMeta
 
 
@@ -18,5 +17,8 @@ class AppLogger(metaclass=SingletonMeta):
 
 
 class RichConsoleHandler(RichHandler):
-    def __init__(self, width=None   , style=None, **kwargs):
-        super().__init__(console=Console(color_system="256", width=width, style=style), **kwargs)
+    def __init__(self, width=None, style=None, **kwargs):
+        super().__init__(
+            console=Console(color_system="256", width=width, style=style), **kwargs
+        )
+
