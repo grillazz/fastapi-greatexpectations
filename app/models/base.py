@@ -1,8 +1,8 @@
 from typing import Any, Optional
 
 from fastapi import HTTPException, status
-from sqlalchemy.ext.declarative import as_declarative, declared_attr
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.orm import Session, as_declarative
 
 
 @as_declarative()

@@ -1,4 +1,4 @@
-version: '3.9'
+version:   '3.9'
 
 services:
 
@@ -8,14 +8,15 @@ services:
       - .env
       - .secrets
     volumes:
-      - .:/app
+      - ./app:/home/code/app
+      - ./logger.ini:/home/code/logger.ini
     ports:
       - 8585:8080
     depends_on:
       - db
     command: bash -c "
       uvicorn app.main:app
-      --log-config ./config.ini
+      --log-config ./logger.ini
       --host 0.0.0.0 --port 8080
       --lifespan=on --use-colors
       --reload --log-level debug
