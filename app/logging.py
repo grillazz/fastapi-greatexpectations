@@ -21,4 +21,3 @@ class RichConsoleHandler(RichHandler):
         super().__init__(
             console=Console(color_system="256", width=width, style=style), **kwargs
         )
-
