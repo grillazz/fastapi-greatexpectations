@@ -1,4 +1,4 @@
-# fastapi-greatexpectations
+# fastapi-greatexpectations :shield: :eyes:
 
 [![developer](https://img.shields.io/badge/Dev-grillazz-green?style)](https://github.com/grillazz)
 ![language](https://img.shields.io/badge/language-python-blue?style)
@@ -10,7 +10,7 @@
 
 In this place two personas William Shakespeare as [Data Feed](https://github.com/catherinedevlin/opensourceshakespeare)
 and Charles Dickens as [Data Validation](https://greatexpectations.io/expectations/)
-will be hosted by Almighty Monty Python as Service :)
+will be hosted by Almighty Monty Python as Watchman Service :)
 
 Can we be better prepared for expected unexpected philosophy ?
 The `expect the unexpected` philosophy leads to the freedom of
