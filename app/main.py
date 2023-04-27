@@ -8,7 +8,7 @@ from app.logging import AppLogger
 
 logger = AppLogger.__call__().get_logger()
 
-app = FastAPI(title="Otoroshi API")
+app = FastAPI(title="Watchman Service API")
 
 app.include_router(database_router)
 app.include_router(gx_router)
