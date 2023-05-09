@@ -9,7 +9,7 @@ RUN apt-get update \
 
 ENV POETRY_HOME="/opt/poetry"
 ENV PATH="$POETRY_HOME/bin:$PATH" \
-    POETRY_VERSION=1.4.0
+    POETRY_VERSION=1.4.2
 RUN curl -sSL https://install.python-poetry.org | python3 - \
     && poetry config virtualenvs.create false \
     && mkdir -p /cache/poetry \
@@ -34,6 +34,8 @@ RUN apt-get purge -y curl git build-essential \
     && rm -rf /var/cache/apt/*
 
 FROM install as app-image
+
+ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0
 
 COPY tests/ tests/
 COPY app/ app/
