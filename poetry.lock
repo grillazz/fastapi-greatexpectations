@@ -703,14 +703,14 @@ files = [
 
 [[package]]
 name = "great-expectations"
-version = "0.16.3"
+version = "0.16.5"
 description = "Always know what to expect from your data."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "great_expectations-0.16.3-py3-none-any.whl", hash = "sha256:8af3dee45ec0c88cda758ecf3351ce0a08a5cccdeebd7604bc3c2ced0ef40991"},
-    {file = "great_expectations-0.16.3.tar.gz", hash = "sha256:ec20e70c5a1545a46b467dc233b95bece90c70f04477195e5bdbcb5f484d9978"},
+    {file = "great_expectations-0.16.5-py3-none-any.whl", hash = "sha256:c3fd36037c94a77e28572a6559b6209840a7a94c21b964e97d93acacb9ed5b95"},
+    {file = "great_expectations-0.16.5.tar.gz", hash = "sha256:e0f063c706bb3aa4da88ecd5b1de49ebf9f01d7845c37a1a21ec5c34b3c13162"},
 ]
 
 [package.dependencies]
@@ -732,7 +732,7 @@ notebook = ">=6.4.10"
 numpy = {version = ">=1.23.0", markers = "python_version >= \"3.10\""}
 packaging = "*"
 pandas = {version = ">=1.3.0", markers = "python_version >= \"3.10\""}
-pydantic = ">=1.10.4,<2.0"
+pydantic = ">=1.9.2,<2.0"
 pyparsing = ">=2.4"
 python-dateutil = ">=2.8.1"
 pytz = ">=2021.3"
@@ -751,7 +751,7 @@ aws-secrets = ["boto3 (==1.17.106)"]
 azure = ["azure-identity (>=1.10.0)", "azure-keyvault-secrets (>=4.0.0)", "azure-storage-blob (>=12.5.0)"]
 azure-secrets = ["azure-identity (>=1.10.0)", "azure-keyvault-secrets (>=4.0.0)", "azure-storage-blob (>=12.5.0)"]
 bigquery = ["gcsfs (>=0.5.1)", "google-cloud-bigquery (>=3.3.6)", "google-cloud-secret-manager (>=1.0.0)", "google-cloud-storage (>=1.28.0)", "sqlalchemy (>=1.4.0,<2.0.0)", "sqlalchemy-bigquery (>=1.3.0)"]
-dev = ["PyHive (>=0.6.5)", "PyMySQL (>=0.9.3,<0.10)", "adr-tools-python (==1.0.3)", "azure-identity (>=1.10.0)", "azure-keyvault-secrets (>=4.0.0)", "azure-storage-blob (>=12.5.0)", "black[jupyter] (==22.3.0)", "boto3 (==1.17.106)", "docstring-parser (==0.15)", "feather-format (>=0.4.1)", "flask (>=1.0.0)", "freezegun (>=0.3.15)", "gcsfs (>=0.5.1)", "google-cloud-bigquery (>=3.3.6)", "google-cloud-secret-manager (>=1.0.0)", "google-cloud-storage (>=1.28.0)", "invoke (>=2.0.0)", "ipykernel (<=6.17.1)", "mock-alchemy (>=0.2.5)", "moto (>=2.0.0,<3.0.0)", "mypy (==1.0.0)", "nbconvert (>=5)", "openpyxl (>=3.0.7)", "pre-commit (>=2.21.0)", "psycopg2-binary (>=2.7.6)", "pyarrow", "pyathena[sqlalchemy] (>=2.0.0)", "pyfakefs (>=4.5.1)", "pyodbc (>=4.0.30)", "pypd (==1.1.0)", "pyspark (>=2.3.2)", "pytest (>=6.2.0)", "pytest-benchmark (>=3.4.1)", "pytest-cov (>=2.8.1)", "pytest-icdiff (>=0.6)", "pytest-mock (>=3.8.2)", "pytest-order (>=0.9.5)", "pytest-random-order (>=1.0.4)", "pytest-timeout (>=2.1.0)", "requirements-parser (>=0.2.0)", "ruff (==0.0.255)", "s3fs (>=0.5.1)", "snapshottest (==0.6.0)", "snowflake-connector-python (>=2.5.0)", "snowflake-sqlalchemy (>=1.2.3)", "sqlalchemy (>=1.4.0,<2.0.0)", "sqlalchemy-bigquery (>=1.3.0)", "sqlalchemy-dremio (==1.2.1)", "sqlalchemy-redshift (>=0.8.8)", "sqlalchemy-vertica-python (>=0.5.10)", "teradatasqlalchemy (==17.0.0.1)", "thrift (>=0.16.0)", "thrift-sasl (>=0.4.3)", "trino (>=0.310.0,!=0.316.0)", "xlrd (>=1.1.0,<2.0.0)"]
+dev = ["PyHive (>=0.6.5)", "PyMySQL (>=0.9.3,<0.10)", "adr-tools-python (==1.0.3)", "azure-identity (>=1.10.0)", "azure-keyvault-secrets (>=4.0.0)", "azure-storage-blob (>=12.5.0)", "black[jupyter] (==22.3.0)", "boto3 (==1.17.106)", "docstring-parser (==0.15)", "feather-format (>=0.4.1)", "flask (>=1.0.0)", "freezegun (>=0.3.15)", "gcsfs (>=0.5.1)", "google-cloud-bigquery (>=3.3.6)", "google-cloud-secret-manager (>=1.0.0)", "google-cloud-storage (>=1.28.0)", "invoke (>=2.0.0)", "ipykernel (<=6.17.1)", "mock-alchemy (>=0.2.5)", "moto (>=2.0.0,<3.0.0)", "mypy (==1.1.1)", "nbconvert (>=5)", "openpyxl (>=3.0.7)", "pre-commit (>=2.21.0)", "psycopg2-binary (>=2.7.6)", "pyarrow", "pyathena[sqlalchemy] (>=2.0.0)", "pyfakefs (>=4.5.1)", "pyodbc (>=4.0.30)", "pypd (==1.1.0)", "pyspark (>=2.3.2)", "pytest (>=6.2.0)", "pytest-benchmark (>=3.4.1)", "pytest-cov (>=2.8.1)", "pytest-icdiff (>=0.6)", "pytest-mock (>=3.8.2)", "pytest-order (>=0.9.5)", "pytest-random-order (>=1.0.4)", "pytest-timeout (>=2.1.0)", "requirements-parser (>=0.2.0)", "ruff (==0.0.255)", "s3fs (>=0.5.1)", "snapshottest (==0.6.0)", "snowflake-connector-python (>=2.5.0)", "snowflake-sqlalchemy (>=1.2.3)", "sqlalchemy (>=1.4.0,<2.0.0)", "sqlalchemy-bigquery (>=1.3.0)", "sqlalchemy-dremio (==1.2.1)", "sqlalchemy-redshift (>=0.8.8)", "sqlalchemy-vertica-python (>=0.5.10)", "teradatasqlalchemy (==17.0.0.1)", "thrift (>=0.16.0)", "thrift-sasl (>=0.4.3)", "trino (>=0.310.0,!=0.316.0)", "xlrd (>=1.1.0,<2.0.0)"]
 dremio = ["pyarrow", "pyodbc (>=4.0.30)", "sqlalchemy (>=1.4.0,<2.0.0)", "sqlalchemy-dremio (==1.2.1)"]
 excel = ["openpyxl (>=3.0.7)", "xlrd (>=1.1.0,<2.0.0)"]
 gcp = ["gcsfs (>=0.5.1)", "google-cloud-bigquery (>=3.3.6)", "google-cloud-secret-manager (>=1.0.0)", "google-cloud-storage (>=1.28.0)", "sqlalchemy (>=1.4.0,<2.0.0)", "sqlalchemy-bigquery (>=1.3.0)"]
@@ -766,7 +766,7 @@ snowflake = ["snowflake-connector-python (>=2.5.0)", "snowflake-sqlalchemy (>=1.
 spark = ["pyspark (>=2.3.2)"]
 sqlalchemy = ["sqlalchemy (>=1.4.0,<2.0.0)"]
 teradata = ["sqlalchemy (>=1.4.0,<2.0.0)", "teradatasqlalchemy (==17.0.0.1)"]
-test = ["adr-tools-python (==1.0.3)", "black[jupyter] (==22.3.0)", "boto3 (==1.17.106)", "docstring-parser (==0.15)", "flask (>=1.0.0)", "freezegun (>=0.3.15)", "invoke (>=2.0.0)", "ipykernel (<=6.17.1)", "mock-alchemy (>=0.2.5)", "moto (>=2.0.0,<3.0.0)", "mypy (==1.0.0)", "nbconvert (>=5)", "pre-commit (>=2.21.0)", "pyfakefs (>=4.5.1)", "pytest (>=6.2.0)", "pytest-benchmark (>=3.4.1)", "pytest-cov (>=2.8.1)", "pytest-icdiff (>=0.6)", "pytest-mock (>=3.8.2)", "pytest-order (>=0.9.5)", "pytest-random-order (>=1.0.4)", "pytest-timeout (>=2.1.0)", "requirements-parser (>=0.2.0)", "ruff (==0.0.255)", "s3fs (>=0.5.1)", "snapshottest (==0.6.0)", "sqlalchemy (>=1.4.0,<2.0.0)"]
+test = ["adr-tools-python (==1.0.3)", "black[jupyter] (==22.3.0)", "boto3 (==1.17.106)", "docstring-parser (==0.15)", "flask (>=1.0.0)", "freezegun (>=0.3.15)", "invoke (>=2.0.0)", "ipykernel (<=6.17.1)", "mock-alchemy (>=0.2.5)", "moto (>=2.0.0,<3.0.0)", "mypy (==1.1.1)", "nbconvert (>=5)", "pre-commit (>=2.21.0)", "pyfakefs (>=4.5.1)", "pytest (>=6.2.0)", "pytest-benchmark (>=3.4.1)", "pytest-cov (>=2.8.1)", "pytest-icdiff (>=0.6)", "pytest-mock (>=3.8.2)", "pytest-order (>=0.9.5)", "pytest-random-order (>=1.0.4)", "pytest-timeout (>=2.1.0)", "requirements-parser (>=0.2.0)", "ruff (==0.0.255)", "s3fs (>=0.5.1)", "snapshottest (==0.6.0)", "sqlalchemy (>=1.4.0,<2.0.0)"]
 trino = ["sqlalchemy (>=1.4.0,<2.0.0)", "trino (>=0.310.0,!=0.316.0)"]
 vertica = ["sqlalchemy (>=1.4.0,<2.0.0)", "sqlalchemy-vertica-python (>=0.5.10)"]
 
@@ -3463,4 +3463,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "5a9dfc6bf061b06c3339159afebcb2d2c66afe8e8f3350d88d2d0fe4d1399f72"
+content-hash = "24b6f11cfeab39153d4c53b2862bd091fea31b503cd053f84c3f2028a8f96399"
