@@ -10,13 +10,8 @@ packages = [{include = "fastapi_greatexpectations"}]
 python = "^3.11"
 fastapi = { extras = ["all"], version = "0.95.0" }
 sqlacodegen = "2.3.0.post1"
-pytest = "7.2.2"
-psycopg2-binary = "2.9.5"
-rich = "13.3.4"
-black = "23.3.0"
-isort = "5.12.0"
-great-expectations = "0.16.5"
-
+great-expectations = { extras = ["postgresql"], version = "0.16.12" }
+ipython = "^8.13.2"
 
 [build-system]
 requires = ["poetry-core"]
