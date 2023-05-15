@@ -6,6 +6,8 @@ from great_expectations.data_context.data_context.abstract_data_context import A
 
 class GxSession:
     # keep state of the great_expectations session
+    # TODO: make this a singleton or borg ?
+
     context: AbstractDataContext
     sql_datasource: SQLDatasource
     sql_table_asset: TableAsset
