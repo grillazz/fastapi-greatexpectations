@@ -8,47 +8,47 @@ from sqlalchemy.orm import Session
 from app.database import get_db, get_db_session
 from app.models.expectation import ExpectationStore
 from app.schemas.expectation import ExpectationSuiteSchema
-from app.service import GxSession
+from app.service import GxSessionTable, GxSession
 
 
 router = APIRouter(prefix="/v1/expectation")
+
+# TODO: build from PostgreDSN
 url: str = f"postgresql://user:secret@db:5432/gxshakezz"
 
-class GxFuncModel(str, Enum):
-    expect_table_row_count_to_equal = "expect_table_row_count_to_equal"
-    expect_table_column_count_to_be_between = "expect_table_column_count_to_be_between"
-    expect_column_values_to_not_be_null = "expect_column_values_to_not_be_null"
 
-
-@router.post("/try/{gx_func}")
+@router.post("/try_expectation/{expectation_type}")
 def try_expectation(
-    gx_func: GxFuncModel,
-    database_schema: str = Query(
-        description="database schema name", default="shakespeare"
-    ),
-    schema_table: str = Query(description="schema table name", default="chapter"),
-    sql_engine: Engine = Depends(get_db),
-    gx_mapping: dict = Body(
-        None,
-        description="pass parameters as json dict and in next step unpack to **mapping",
-    ),
+    expectation_type: str,
 ):
-    # data_set = SqlAlchemyataset(
-    #     table_name=schema_table, engine=sql_engine, schema=database_schema
-    # )
+    datasource_name = "my_gx"
+    table_name = "chapter"
+    _gx_session = GxSessionTable(url, datasource_name, table_name)
 
+    _validator = _gx_session.context.get_validator(
+        datasource_name=datasource_name,
+        data_asset_name=_gx_session.sql_table_asset.name
+    )
+
+    try:
+        return eval(f"_validator.{expectation_type}()")
+    except InvalidExpectationConfigurationError as e:
+        return e.__dict__
+
+@router.get("/list_available_expectation_types")
+def list_available_expectation_types(
+):
+
+    # TODO: pass gx session as dependency or if not possible create new one
     datasource_name = "my_gx"
     table_name = "chapter"
     data_asset_name =  "my_gx_asset"
-    _gx_session = GxSession(url, datasource_name, table_name)
+    _gx_session = GxSessionTable(url, datasource_name, table_name)
 
     _validator = _gx_session.context.get_validator(datasource_name="my_gx", data_asset_name="chapter_asset")
 
-    try:
-        return eval(f"_validator.{gx_func.value}()")
-        # return _validator.expect_column_values_to_not_be_null()
-    except InvalidExpectationConfigurationError as e:
-        return e.__dict__
+    return _validator.list_available_expectation_types()
+
 #
 #
 # @router.post(
