@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 # from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy import inspect
 from sqlalchemy.engine import Engine
@@ -33,3 +33,19 @@ async def get_schema_tables(
 #         table_name=schema_table, engine=sql_engine, schema=database_schema
 #     )
 #     return db.columns
+@router.post("/columns/{datasource}/{table}")
+def get_table_columns(
+    datasource: str,
+    table: str,
+    request: Request
+):
+    _gx = request.app.state.gx
+
+    _gx.set_asset(table_name=table)
+
+    _validator = _gx.context.get_validator(
+        datasource_name=datasource,
+        data_asset_name=_gx.sql_table_asset.name
+    )
+
+    return _validator.columns()
