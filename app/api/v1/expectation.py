@@ -17,19 +17,19 @@ router = APIRouter(prefix="/v1/expectation")
 url: str = f"postgresql://user:secret@db:5432/gxshakezz"
 
 
-@router.post("/try_expectation/{expectation_type}")
+@router.post("/try_expectation/{datasource}/{table}/{expectation_type}")
 def try_expectation(
-    expectation_type: str, request: Request
+    datasource: str,
+    table: str,
+    expectation_type: str,
+    request: Request
 ):
-    datasource_name = "my_gx"
-    table_name = "chapter"
-
     _gx = request.app.state.gx
 
-    _gx.set_asset(table_name=table_name)
+    _gx.set_asset(table_name=table)
 
     _validator = _gx.context.get_validator(
-        datasource_name=datasource_name,
+        datasource_name=datasource,
         data_asset_name=_gx.sql_table_asset.name
     )
 
