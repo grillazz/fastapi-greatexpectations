@@ -18,7 +18,8 @@ app.include_router(gx_router)
 # TODO: build from PostgreDSN
 url: str = f"postgresql://user:secret@db:5432/gxshakezz"
 
+
 @app.on_event("startup")
 def startup_event():
+    app.state.gx = GxSession(url, "my_gx")
     start_db()
-    app.state.gx = GxSession()

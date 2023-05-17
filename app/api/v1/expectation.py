@@ -1,6 +1,6 @@
 from enum import Enum
 
-from fastapi import APIRouter, Body, Depends, Query, status
+from fastapi import APIRouter, Body, Depends, Query, status, Request
 from great_expectations.exceptions.exceptions import InvalidExpectationConfigurationError
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
@@ -19,15 +19,18 @@ url: str = f"postgresql://user:secret@db:5432/gxshakezz"
 
 @router.post("/try_expectation/{expectation_type}")
 def try_expectation(
-    expectation_type: str,
+    expectation_type: str, request: Request
 ):
     datasource_name = "my_gx"
     table_name = "chapter"
-    _gx_session = GxSessionTable(url, datasource_name, table_name)
 
-    _validator = _gx_session.context.get_validator(
+    _gx = request.app.state.gx
+
+    _gx.set_asset(table_name=table_name)
+
+    _validator = _gx.context.get_validator(
         datasource_name=datasource_name,
-        data_asset_name=_gx_session.sql_table_asset.name
+        data_asset_name=_gx.sql_table_asset.name
     )
 
     try:
