@@ -13,6 +13,7 @@ fastapi = { extras = ["all"], version = "0.95.0" }
 sqlacodegen = "2.3.0.post1"
 great-expectations = { extras = ["postgresql"], version = "0.16.12" }
 rich = "^13.3.5"
+black = "^23.3.0"
 
 
 [build-system]
