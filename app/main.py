@@ -10,7 +10,7 @@ from app.service import GxSession
 
 logger = AppLogger.__call__().get_logger()
 
-app = FastAPI(title="Watchman Service API")
+app = FastAPI(title="Data Validation API")
 
 app.include_router(database_router)
 app.include_router(gx_router)
