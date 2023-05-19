@@ -23,7 +23,7 @@ async def get_schema_tables(
     return inspected.get_table_names(schema=sql_db_schema)
 
 
-@router.post("/columns/{datasource}/{table}")
+@router.get("/columns/{datasource}/{table}")
 def get_table_columns(datasource: str, table: str, request: Request):
     _gx = request.app.state.gx
 
