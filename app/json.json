@@ -1,0 +1,77 @@
+[
+  Batch(datasource=SQLDatasource(type=
+  'sql',
+  name=
+  'my_gx',
+  id=None,
+  assets=
+  {
+    'my_gx_asset': TableAsset(name=
+    'my_gx_asset',
+    type=
+    'table',
+    id=None,
+    order_by=
+  [],
+  batch_metadata=
+  {},
+  splitter=None,
+  table_name=
+  'chapter',
+  schema_name=None)
+  },
+  connection_string=
+  'postgresql://user:secret@localhost:5432/gxshakezz',
+  create_temp_table=True,
+  kwargs=
+  {}
+  ),
+  data_asset=TableAsset(name=
+  'my_gx_asset',
+  type=
+  'table',
+  id=None,
+  order_by=
+  [],
+  batch_metadata=
+  {},
+  splitter=None,
+  table_name=
+  'chapter',
+  schema_name=None),
+  batch_request=BatchRequest(datasource_name=
+  'my_gx',
+  data_asset_name=
+  'my_gx_asset',
+  options=
+  {}
+  ),
+  data=<great_expectations.execution_engine.sqlalchemy_batch_data.SqlAlchemyBatchData
+  object
+  at
+  0x1303b9490>,
+  id=
+  'my_gx-my_gx_asset',
+  metadata=
+  {},
+  batch_markers=
+  {
+    'ge_load_time': '20230514T114900.505226Z'
+  },
+  batch_spec=
+  {
+    'type': 'table',
+    'data_asset_name': 'my_gx_asset',
+    'table_name': 'chapter',
+    'schema_name': None,
+    'batch_identifiers': {}
+  },
+  batch_definition=
+  {
+    'datasource_name': 'my_gx',
+    'data_connector_name': 'fluent',
+    'data_asset_name': 'my_gx_asset',
+    'batch_identifiers': {}
+  }
+  )
+]
