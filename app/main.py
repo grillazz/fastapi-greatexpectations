@@ -20,5 +20,6 @@ app.include_router(gx_router)
 
 @app.on_event("startup")
 def startup_event():
-    app.state.gx = GxSession(settings.pg_url.__str__(), "my_gx")
+    app.state.gx = GxSession(settings.pg_url.__str__()+"?options=-csearch_path=shakespeare", "my_gx")
+    # app.state.gx = GxSession(settings.pg_url.__str__()+"?options=-csearch_path=shakespeare", "my_gx")
     start_db()
