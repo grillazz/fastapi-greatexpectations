@@ -2,13 +2,11 @@ from fastapi import APIRouter, Request
 from great_expectations.exceptions.exceptions import (
     InvalidExpectationConfigurationError,
 )
+from app.config import settings
 from app.service import GxSessionTable, GxSession
 
 
 router = APIRouter(prefix="/v1/expectation")
-
-# TODO: build from PostgreDSN
-url: str = f"postgresql://user:secret@db:5432/gxshakezz"
 
 
 @router.post("/try_expectation/{datasource}/{table}/{expectation_type}")
@@ -35,7 +33,7 @@ def list_available_expectation_types():
     datasource_name = "my_gx"
     table_name = "chapter"
     data_asset_name = "my_gx_asset"
-    _gx_session = GxSessionTable(url, datasource_name, table_name)
+    _gx_session = GxSessionTable(settings.pg_url.__str__(), datasource_name, table_name)
 
     _validator = _gx_session.context.get_validator(
         datasource_name="my_gx", data_asset_name="chapter_asset"
