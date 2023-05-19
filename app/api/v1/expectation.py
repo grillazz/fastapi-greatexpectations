@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Request
-from great_expectations.exceptions.exceptions import InvalidExpectationConfigurationError
+from great_expectations.exceptions.exceptions import (
+    InvalidExpectationConfigurationError,
+)
 from app.service import GxSessionTable, GxSession
 
 
@@ -11,18 +13,14 @@ url: str = f"postgresql://user:secret@db:5432/gxshakezz"
 
 @router.post("/try_expectation/{datasource}/{table}/{expectation_type}")
 def try_expectation(
-    datasource: str,
-    table: str,
-    expectation_type: str,
-    request: Request
+    datasource: str, table: str, expectation_type: str, request: Request
 ):
     _gx = request.app.state.gx
 
     _gx.set_asset(table_name=table)
 
     _validator = _gx.context.get_validator(
-        datasource_name=datasource,
-        data_asset_name=_gx.sql_table_asset.name
+        datasource_name=datasource, data_asset_name=_gx.sql_table_asset.name
     )
 
     try:
@@ -32,15 +30,15 @@ def try_expectation(
 
 
 @router.get("/list_available_expectation_types")
-def list_available_expectation_types(
-):
-
+def list_available_expectation_types():
     # TODO: pass gx session as dependency or if not possible create new one
     datasource_name = "my_gx"
     table_name = "chapter"
-    data_asset_name =  "my_gx_asset"
+    data_asset_name = "my_gx_asset"
     _gx_session = GxSessionTable(url, datasource_name, table_name)
 
-    _validator = _gx_session.context.get_validator(datasource_name="my_gx", data_asset_name="chapter_asset")
+    _validator = _gx_session.context.get_validator(
+        datasource_name="my_gx", data_asset_name="chapter_asset"
+    )
 
     return _validator.list_available_expectation_types()
