@@ -57,4 +57,5 @@ up                   Run project with compose
 ...
 Hope you enjoy it.
 
-ps. previous implementation of this project for `great-expectations = "0.16.3"` is available [in this branch](https://github.com/grillazz/fastapi-greatexpectations/tree/gx_0163)
+ps. previous implementation of this project for `great-expectations = "0.16.3"` 
+is available [in this branch](https://github.com/grillazz/fastapi-greatexpectations/tree/gx_0163)
