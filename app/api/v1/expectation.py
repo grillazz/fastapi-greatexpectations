@@ -33,7 +33,7 @@ def list_available_expectation_types():
     datasource_name = "my_gx"
     table_name = "chapter"
     data_asset_name = "my_gx_asset"
-    _gx_session = GxSessionTable(settings.pg_url.__str__(), datasource_name, table_name)
+    _gx_session = GxSessionTable(settings.pg_url.__str__()+"?options=-csearch_path=shakespeare", datasource_name, table_name)
 
     _validator = _gx_session.context.get_validator(
         datasource_name="my_gx", data_asset_name="chapter_asset"

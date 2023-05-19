@@ -14,5 +14,4 @@ def client() -> Generator:
         app=app,
         base_url="http://testserver",
     ) as test_client:
-        app.state.gx = GxSession(settings.pg_url.__str__(), "my_gx")
         yield test_client
