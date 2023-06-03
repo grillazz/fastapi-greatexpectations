@@ -10,7 +10,7 @@
 
 In this place two personas William Shakespeare as [Data Feed](https://github.com/catherinedevlin/opensourceshakespeare)
 and Charles Dickens as [Data Validation](https://greatexpectations.io/expectations/)
-will be hosted by Almighty Monty Python as Watchman Service :)
+will be hosted by Almighty Monty Python as Guardian OSS :)
 
 [greatexpectations.io](https://greatexpectations.io/expectations/) is a tool for data quality validation, documentation, and profiling.
 Here we will use latest version of [great-expectations = "0.16.12"](https://pypi.org/project/great-expectations/) 
