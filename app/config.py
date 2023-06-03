@@ -14,6 +14,7 @@ class Settings(BaseSettings):
         path=f"/{os.getenv('SQL_DB') or ''}",
     )
     pg_url_csearch_path: str = os.getenv("SQL_CSEARCH_PATH")
+    sql_datasource_name: str = os.getenv("SQL_DATASOURCE_NAME", "default")
 
 
 @lru_cache
