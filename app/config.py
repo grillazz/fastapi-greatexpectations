@@ -13,6 +13,7 @@ class Settings(BaseSettings):
         port="5432",
         path=f"/{os.getenv('SQL_DB') or ''}",
     )
+    pg_url_csearch_path: str = os.getenv("SQL_CSEARCH_PATH")
 
 
 @lru_cache
