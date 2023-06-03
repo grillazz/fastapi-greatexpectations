@@ -5,6 +5,7 @@ from sqlalchemy import inspect
 from sqlalchemy.engine import Engine
 
 from app.database import get_db
+from app.config import settings
 
 router = APIRouter(prefix="/v1/database")
 
@@ -23,14 +24,18 @@ async def get_schema_tables(
     return inspected.get_table_names(schema=sql_db_schema)
 
 
-@router.get("/columns/{datasource}/{table}")
-def get_table_columns(datasource: str, table: str, request: Request):
+@router.get("/columns/{table}")
+def get_table_columns(
+        table: str,
+        request: Request
+):
     _gx = request.app.state.gx
 
     _gx.set_asset(table_name=table)
 
     _validator = _gx.context.get_validator(
-        datasource_name=datasource, data_asset_name=_gx.sql_table_asset.name
+        datasource_name=settings.sql_datasource_name,
+        data_asset_name=_gx.sql_table_asset.name
     )
 
     return _validator.columns()

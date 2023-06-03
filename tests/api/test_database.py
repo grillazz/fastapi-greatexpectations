@@ -43,6 +43,6 @@ def test_get_tables(client: TestClient, response_data: dict, status_code: int):
     ),
 )
 def test_get_columns(client: TestClient, response_data: dict, status_code: int):
-    response = client.get("/v1/database/columns/my_gx/chapter")
+    response = client.get("/v1/database/columns/chapter")
     assert response.status_code == status_code
     assert response.json() == response_data

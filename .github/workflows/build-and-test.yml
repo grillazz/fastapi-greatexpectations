@@ -20,6 +20,8 @@ jobs:
       SQL_USER: postgres
       POSTGRES_PASSWORD: secret
       PGPASSWORD: secret
+      SQL_CSEARCH_PATH: shakespeare
+      SQL_DATASOURCE_NAME: my_gxshakezz
 
     services:
       postgres:
