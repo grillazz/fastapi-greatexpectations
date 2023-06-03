@@ -2,18 +2,20 @@ from fastapi import APIRouter, Request
 from great_expectations.exceptions.exceptions import (
     InvalidExpectationConfigurationError,
 )
+from app.config import settings
 
 router = APIRouter(prefix="/v1/expectation")
 
 
-@router.get("/list_available_expectation_types/{datasource}/{table}")
-def list_available_expectation_types(datasource: str, table: str, request: Request):
+@router.get("/list_available_expectation_types/{table}")
+def list_available_expectation_types(table: str, request: Request):
     _gx = request.app.state.gx
 
     _gx.set_asset(table_name=table)
 
     _validator = _gx.context.get_validator(
-        datasource_name=datasource, data_asset_name=_gx.sql_table_asset.name
+        datasource_name=settings.sql_datasource_name,
+        data_asset_name=_gx.sql_table_asset.name
     )
 
     try:
@@ -22,16 +24,16 @@ def list_available_expectation_types(datasource: str, table: str, request: Reque
         return e.__dict__
 
 
-@router.post("/try_expectation/{datasource}/{table}/{expectation_type}")
+@router.post("/try_expectation/{table}/{expectation_type}")
 def try_expectation(
-    datasource: str, table: str, expectation_type: str, request: Request
+    table: str, expectation_type: str, request: Request
 ):
     _gx = request.app.state.gx
 
     _gx.set_asset(table_name=table)
 
     _validator = _gx.context.get_validator(
-        datasource_name=datasource, data_asset_name=_gx.sql_table_asset.name
+        datasource_name=settings.sql_datasource_name, data_asset_name=_gx.sql_table_asset.name
     )
 
     try:

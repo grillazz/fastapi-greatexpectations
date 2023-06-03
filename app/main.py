@@ -11,7 +11,7 @@ from app.service import GxSession
 
 logger = AppLogger.__call__().get_logger()
 
-app = FastAPI(title="Data Validation API")
+app = FastAPI(title="Guardian API")
 
 app.include_router(database_router)
 app.include_router(gx_router)
@@ -23,7 +23,6 @@ def startup_event():
     app.state.gx = GxSession(
         settings.pg_url.__str__()
         + f"?options=-csearch_path={settings.pg_url_csearch_path}",
-        "my_gx",
+        settings.sql_datasource_name,
     )
-    # app.state.gx = GxSession(settings.pg_url.__str__()+"?options=-csearch_path=shakespeare", "my_gx")
     start_db()
