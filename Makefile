@@ -50,4 +50,4 @@ test:	## Run project tests
 
 .PHONY: coverage
 coverage:	## Run project tests with coverage
-	docker-compose run --rm app coverage run -m pytest
+	docker-compose run --rm app bash -c "cd tests && pytest --cov=app"
