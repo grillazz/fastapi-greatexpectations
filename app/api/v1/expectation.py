@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Body
 from great_expectations.exceptions.exceptions import (
     InvalidExpectationConfigurationError,
 )
@@ -26,7 +26,11 @@ def list_available_expectation_types(table: str, request: Request):
 
 @router.post("/try_expectation/{table}/{expectation_type}")
 def try_expectation(
-    table: str, expectation_type: str, request: Request
+    table: str, expectation_type: str, request: Request,
+    gx_mapping: dict = Body(
+        None,
+        description="pass parameters as json dict and in next step unpack to **mapping",
+    ),
 ):
     _gx = request.app.state.gx
 
@@ -37,6 +41,11 @@ def try_expectation(
     )
 
     try:
-        return eval(f"_validator.{expectation_type}()")
+        return eval(f"_validator.{expectation_type}(**gx_mapping)")
     except InvalidExpectationConfigurationError as e:
         return e.__dict__
+
+
+# TODO: endpoint to create expectation suite >
+#  should keep expectation suite in memory and update it with each call
+#  unless reset or implicit reset after save to database
