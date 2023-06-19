@@ -53,6 +53,7 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Test Code Coverage
         run: poetry run coverage run -m pytest -v --cov=app --cov-report=xml
-
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
 
 

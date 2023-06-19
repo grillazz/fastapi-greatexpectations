@@ -5,6 +5,7 @@
 [![license](https://img.shields.io/github/license/grillazz/fastapi-greatexpectations)](https://github.com/grillazz/fastapi-greatexpectations/blob/main/LICENSE)
 ![visitors](https://visitor-badge.laobi.icu/badge?page_id=grillazz.fastapi-greatexpectations")
 [![CI](https://img.shields.io/github/workflow/status/grillazz/fastapi-greatexpectations/Unit%20Tests/main)](https://github.com/grillazz/fastapi-greatexpectations/actions/workflows/build-and-test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/grillazz/fastapi-greatexpectations/badge.svg?branch=main)](https://coveralls.io/github/grillazz/fastapi-greatexpectations?branch=main)
 
 ![fastapi-greatexpectations](/static/wunsz.jpg)
 
