@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, Request
 
-# from great_expectations.dataset import SqlAlchemyDataset
 from sqlalchemy import inspect
 from sqlalchemy.engine import Engine
 
