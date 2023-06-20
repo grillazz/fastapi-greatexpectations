@@ -70,3 +70,10 @@ def test_get_expectation_types(client: TestClient, response_data: dict, status_c
     response = client.get("/v1/expectation/list_available_expectation_types/chapter")
     assert response.status_code == status_code
     assert response.json() == response_data
+
+
+# TODO: run tests for all the expectations types and their parameters
+def test_try_expectation_types(client: TestClient):
+    response = client.post("/v1/expectation/try_expectation/chapter/expect_table_row_count_to_equal", json={})
+    assert response.status_code == 200
+    assert response.json() == {'message': 'An expected row count must be provided'}
