@@ -24,17 +24,14 @@ async def get_schema_tables(
 
 
 @router.get("/columns/{table}")
-def get_table_columns(
-        table: str,
-        request: Request
-):
+def get_table_columns(table: str, request: Request):
     _gx = request.app.state.gx
 
     _gx.set_asset(table_name=table)
 
     _validator = _gx.context.get_validator(
         datasource_name=settings.sql_datasource_name,
-        data_asset_name=_gx.sql_table_asset.name
+        data_asset_name=_gx.sql_table_asset.name,
     )
 
     return _validator.columns()
