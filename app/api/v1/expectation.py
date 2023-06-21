@@ -19,7 +19,7 @@ def list_available_expectation_types(table: str, request: Request):
 
     _validator = _gx.context.get_validator(
         datasource_name=settings.sql_datasource_name,
-        data_asset_name=_gx.sql_table_asset.name
+        data_asset_name=_gx.sql_table_asset.name,
     )
 
     try:
@@ -30,7 +30,9 @@ def list_available_expectation_types(table: str, request: Request):
 
 @router.post("/try_expectation/{table}/{expectation_type}")
 def try_expectation(
-    table: str, expectation_type: str, request: Request,
+    table: str,
+    expectation_type: str,
+    request: Request,
     gx_mapping: dict = Body(
         None,
         description="pass parameters as json dict and in next step unpack to **mapping",
@@ -41,7 +43,8 @@ def try_expectation(
     _gx.set_asset(table_name=table)
 
     _validator = _gx.context.get_validator(
-        datasource_name=settings.sql_datasource_name, data_asset_name=_gx.sql_table_asset.name
+        datasource_name=settings.sql_datasource_name,
+        data_asset_name=_gx.sql_table_asset.name,
     )
 
     try:
@@ -53,16 +56,21 @@ def try_expectation(
         return e.__dict__
 
 
-@router.get("/doc_expectation/{table}/{expectation_type}", response_class=PlainTextResponse)
+@router.get(
+    "/doc_expectation/{table}/{expectation_type}", response_class=PlainTextResponse
+)
 def doc_expectation(
-    table: str, expectation_type: str, request: Request,
+    table: str,
+    expectation_type: str,
+    request: Request,
 ):
     _gx = request.app.state.gx
 
     _gx.set_asset(table_name=table)
 
     _validator = _gx.context.get_validator(
-        datasource_name=settings.sql_datasource_name, data_asset_name=_gx.sql_table_asset.name
+        datasource_name=settings.sql_datasource_name,
+        data_asset_name=_gx.sql_table_asset.name,
     )
 
     try:

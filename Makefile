@@ -46,7 +46,7 @@ requirements:	## Refresh requirements.txt from pipfile.lock
 
 .PHONY: test
 test:	## Run project tests
-	docker-compose run --rm app pytest
+	docker-compose run --rm app pytest -vv
 
 .PHONY: coverage
 coverage:	## Run project tests with coverage
