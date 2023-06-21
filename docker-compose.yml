@@ -23,6 +23,19 @@ services:
       --reload --log-level debug
       "
 
+  sqlserver:
+    build:
+      context: ./sqlserver
+      dockerfile: Dockerfile
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    env_file:
+      - .env
+      - .secrets
+    ports:
+      - 1433:1433
+
+
   db:
     build:
       context: ./db
@@ -47,3 +60,4 @@ services:
 
 volumes:
   postgres_data:
+  sqlserver_data:
