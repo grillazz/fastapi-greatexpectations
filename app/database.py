@@ -9,7 +9,7 @@ from app.config import settings
 from app.models.base import Base
 
 engine = create_engine(
-    settings.pg_url.__str__(),
+    settings.sqlserver_url.__str__(),
     echo=True,
 )
 
