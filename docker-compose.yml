@@ -14,7 +14,7 @@ services:
     ports:
       - 8585:8080
     depends_on:
-      - db
+      - sqlserver
     command: bash -c "
       uvicorn app.main:app
       --log-config ./logger.ini
@@ -41,28 +41,28 @@ services:
       - 1433:1433
 
 
-  db:
-    build:
-      context: ./db
-      dockerfile: Dockerfile
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - .env
-      - .secrets
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=${SQL_USER}
-    healthcheck:
-      test:
-        [
-            "CMD-SHELL", "pg_isready -d $SQL_DB -U $SQL_USER"
-        ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+#  db:
+#    build:
+#      context: ./db
+#      dockerfile: Dockerfile
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    env_file:
+#      - .env
+#      - .secrets
+#    ports:
+#      - 5432:5432
+#    environment:
+#      - POSTGRES_USER=${SQL_USER}
+#    healthcheck:
+#      test:
+#        [
+#            "CMD-SHELL", "pg_isready -d $SQL_DB -U $SQL_USER"
+#        ]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
 
 volumes:
-  postgres_data:
+#  postgres_data:
   sqlserver_data:
