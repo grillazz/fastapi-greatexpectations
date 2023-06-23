@@ -131,3 +131,7 @@ dmypy.json
 
 # JetBrains
 .idea/
+/sqlserver/backup/
+/sqlserver/data/
+/sqlserver/log/
+/sqlserver/restore/
