@@ -29,7 +29,7 @@ FROM msodbcsql18 AS poetry
 
 ENV POETRY_HOME="/opt/poetry"
 ENV PATH="$POETRY_HOME/bin:$PATH" \
-    POETRY_VERSION=1.4.2
+    POETRY_VERSION=1.5.1
 RUN curl -sSL https://install.python-poetry.org | python3 - \
     && poetry config virtualenvs.create false \
     && mkdir -p /cache/poetry \
