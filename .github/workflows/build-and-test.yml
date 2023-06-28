@@ -41,32 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install SQL Server Tools
-        run: |
-#          sudo su
-#          curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-#          curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+        run: sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
 
-          sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
-#
-#      - name: Restore database from backup
-##        working-directory: /opt/mssql-tools18/bin
-#        run: ./sqlcmd -S mssql+pyodbc://sa:pass@localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U sa -P 'pass' -d master -i /sqlserver/setup/restore.sql
-#        env:
-#          SA_PASSWORD: pass
-#          ACCEPT_EULA: Y
-#      - uses: actions/setup-python@v4
-#        with:
-#          python-version: ${{ matrix.python-version }}
-#      - name: Install Poetry
-#        uses: abatilo/actions-poetry@v2
-#        with:
-#          poetry-version: ${{ matrix.poetry-version }}
-#      - name: Install dependencies
-#        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-#        run: poetry install --no-interaction --no-root
-#      - name: Test Code Coverage
-#        run: poetry run coverage run -m pytest -v --cov=app --cov-report=xml
-#      - name: Coveralls
-#        uses: coverallsapp/github-action@v2
 
 
