@@ -4,7 +4,7 @@ on: pull_request
 
 jobs:
   ci:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -47,12 +47,12 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install SQL Server Tools
         run: |
-          sudo curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-#          sudo curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-#          sudo apt-get update
-#          sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
-#          sudo echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
-#          sudo source ~/.bashrc
+          curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+          apt-get update
+          ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
+          echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
+          source ~/.bashrc
       - name: Restore database from backup
 #        working-directory: /opt/mssql-tools18/bin
         run: ./sqlcmd -S mssql+pyodbc://sa:pass@localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U sa -P 'pass' -d master -i /sqlserver/setup/restore.sql
