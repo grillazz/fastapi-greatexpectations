@@ -47,10 +47,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install SQL Server Tools
         run: |
-          sudo curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
-          sudo curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-          sudo apt-get update
-          sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
+          curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+          apt-get update
+          ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
           echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
           source ~/.bashrc
       - name: Restore database from backup
