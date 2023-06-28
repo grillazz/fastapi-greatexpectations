@@ -47,8 +47,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install SQL Server Tools
         run: |
-          curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-          curl https://packages.microsoft.com/config/ubuntu/22.10/prod.list > /etc/apt/sources.list.d/mssql-release.list
+          sudo curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+          sudo curl https://packages.microsoft.com/config/ubuntu/22.10/prod.list > /etc/apt/sources.list.d/mssql-release.list
           sudo apt-get update 
           sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
           echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
