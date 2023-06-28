@@ -48,12 +48,14 @@ jobs:
       - name: Install SQL Server Tools
         run: |
           sudo su
-          curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-          curl curl curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
+          apt-get install gnupg2 curl ca-certificates
+          curl curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+          curl curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
           apt-get update
-          ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
-          echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
-          source ~/.bashrc
+          ACCEPT_EULA=Y apt-get install -y msodbcsql18
+          ACCEPT_EULA=Y apt-get install -y mssql-tools18
+#          echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
+#          source ~/.bashrc
       - name: Restore database from backup
 #        working-directory: /opt/mssql-tools18/bin
         run: ./sqlcmd -S mssql+pyodbc://sa:pass@localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U sa -P 'pass' -d master -i /sqlserver/setup/restore.sql
