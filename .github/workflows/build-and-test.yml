@@ -41,7 +41,9 @@ jobs:
       - name: Restore AdventureWorksLT2022 backup
 #        working-directory: /opt/mssql-tools/bin
 #        run: sqlcmd -S mssql+pyodbc://sa@localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U SA -P ${{ env.SA_PASSWORD }} -Q "CREATE DATABASE AdventureWorksLT2022;"
-        run: /opt/mssql-tools18/bin/sqlcmd -S mssql+pyodbc://sa@localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U SA -P ${{ env.SA_PASSWORD }} -Q "CREATE DATABASE AdventureWorksLT2022;"
+        run: | 
+          /opt/mssql-tools18/bin/sqlcmd -?
+          /opt/mssql-tools18/bin/sqlcmd -S mssql+pyodbc://localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U SA
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
