@@ -10,13 +10,13 @@ jobs:
       matrix:
         python-version: [ "3.10" ]
         poetry-version: [ "1.5.1" ]
-#
-#
-#    env:
-#      PYTHONDONTWRITEBYTECODE: 1
-#      PYTHONUNBUFFERED: 1
-#      SA_PASSWORD: pass
-#      ACCEPT_EULA: Y
+
+
+    env:
+      PYTHONDONTWRITEBYTECODE: 1
+      PYTHONUNBUFFERED: 1
+      SA_PASSWORD: pass
+      ACCEPT_EULA: Y
 
     services:
       mssql:
@@ -27,21 +27,24 @@ jobs:
         ports:
           - 1433:1433
 
-#      postgres:
-#        image: postgres:14
-#        env:
-#          # must specify password for PG Docker container image, see: https://registry.hub.docker.com/_/postgres?tab=description&page=1&name=10
-#          POSTGRES_PASSWORD: secret
-#          POSTGRES_DB: testdb
-#        ports:
-#          - 5432:5432
-#        # needed because the postgres container does not provide a health check
-#        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
       - uses: actions/checkout@v3
       - name: Install SQL Server Tools
-        run: sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+        run: sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
+      - name: Download AdventureWorksLT2022 backup
+        run: curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
 
-
-
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      - name: Test Code Coverage
+        run: poetry run coverage run -m pytest -v --cov=app --cov-report=xml
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
