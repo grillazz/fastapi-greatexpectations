@@ -35,10 +35,12 @@ jobs:
         run: |
           pwd
           ls -la
+          cd /opt/mssql-tools/bin
+          ls -la
           curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
       - name: Restore AdventureWorksLT2022 backup
-        working-directory: /opt/mssql-tools/bin
-        run:  ./sqlcmd -S mssql+pyodbc://sa@localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U SA -P ${{ env.SA_PASSWORD }} -Q "CREATE DATABASE AdventureWorksLT2022;"
+#        working-directory: /opt/mssql-tools/bin
+        run: sqlcmd -S mssql+pyodbc://sa@localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U SA -P ${{ env.SA_PASSWORD }} -Q "CREATE DATABASE AdventureWorksLT2022;"
 
       - uses: actions/setup-python@v4
         with:
