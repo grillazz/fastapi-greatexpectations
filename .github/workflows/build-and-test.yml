@@ -34,7 +34,7 @@ jobs:
       - name: Download AdventureWorksLT2022 backup
         run: |
           pwd
-          ld -al
+          ls -la
           curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
 #      - name: Restore AdventureWorksLT2022 backup
 
