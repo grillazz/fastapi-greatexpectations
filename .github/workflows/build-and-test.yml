@@ -32,7 +32,7 @@ jobs:
       - name: Install SQL Server Tools
         run: sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
       - name: Download AdventureWorksLT2022 backup
-        run: curl -L -o ./db/sqlserver/restore/AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
+        run: curl -L -o ./sqlserver/restore/AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
 
       - uses: actions/setup-python@v4
         with:
