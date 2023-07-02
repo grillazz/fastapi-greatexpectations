@@ -34,17 +34,13 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install SQL Server Tools
         run: sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
-      - name: Download AdventureWorksLT2022 backup
+      - name: Download AdventureWorks install script
         run: |
-          pwd
-          ls -la
           curl -L -o AdventureWorks-oltp-install-script.zip https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks-oltp-install-script.zip
-      - name: Restore AdventureWorksLT2022 backup
-        run: 7z x AdventureWorks-oltp-install-script.zip
-#        run: sqlcmd -S mssql+pyodbc://sa@localhost:1433/master?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes -U SA -P ${{ env.SA_PASSWORD }} -Q "CREATE DATABASE AdventureWorksLT2022;"
-#        run: |
-#          /opt/mssql-tools18/bin/sqlcmd -?
-#          /opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -C -i /sqlserver/setup/restore-ci.sql
+      - name: Unzip and Install AdventureWorks Database
+        run: |
+          7z x AdventureWorks-oltp-install-script.zip
+          /opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -C -i /AdventureWorks-oltp-install-script/instawdb.sql
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
