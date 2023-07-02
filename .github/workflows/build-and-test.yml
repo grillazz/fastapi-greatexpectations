@@ -38,8 +38,6 @@ jobs:
         run: |
           pwd
           ls -la
-          cd /var/opt/mssql/backup/
-          ls -la
           curl -L -o AdventureWorks-oltp-install-script.zip https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks-oltp-install-script.zip
       - name: Restore AdventureWorksLT2022 backup
         run: 7z x AdventureWorks-oltp-install-script.zip
