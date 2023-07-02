@@ -38,7 +38,7 @@ jobs:
         run: |
           pwd
           ls -la
-          cd /opt
+          cd /var/opt/mssql/backup/
           ls -la
           curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
       - name: Restore AdventureWorksLT2022 backup
