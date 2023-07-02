@@ -40,9 +40,7 @@ jobs:
       - name: Unzip and Install AdventureWorks Database
         run: |
           7z x AdventureWorks-oltp-install-script.zip -oAdventureWorks-oltp-install-script
-          cd AdventureWorks-oltp-install-script/
-          ls -al
-#          /opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -C -i /AdventureWorks-oltp-install-script/instawdb.sql
+          /opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -C -i AdventureWorks-oltp-install-script/instawdb.sql
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
