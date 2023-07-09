@@ -20,6 +20,8 @@ app.include_router(gx_router)
 
 @app.on_event("startup")
 def startup_event():
+    logger.info("Starting up...")
+    logger.info(f"Connecting to database...{settings.sqlserver_url.__str__()}")
     app.state.gx = GxSession(
         settings.sqlserver_url.__str__(),
         settings.sql_datasource_name,
