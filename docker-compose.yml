@@ -11,6 +11,7 @@ services:
       - ./app:/home/code/app
       - ./tests:/home/code/tests
       - ./logger.ini:/home/code/logger.ini
+      - ./sqlserver/setup:/home/code/setup
     ports:
       - 8585:8080
     depends_on:
@@ -33,7 +34,7 @@ services:
       - ./sqlserver/restore:/var/opt/mssql/restore
       - ./sqlserver/data:/var/opt/mssql/data
       - ./sqlserver/log:/var/opt/mssql/log
-      - ./sqlserver/setup:/home/setup
+
     env_file:
       - .env
       - .secrets
