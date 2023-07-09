@@ -37,32 +37,12 @@ services:
     env_file:
       - .env
       - .secrets
+    environment:
+      - SA_PASSWORD=Alaska2023
+      - ACCEPT_EULA=Y
     ports:
       - 1433:1433
 
 
-#  db:
-#    build:
-#      context: ./db
-#      dockerfile: Dockerfile
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data
-#    env_file:
-#      - .env
-#      - .secrets
-#    ports:
-#      - 5432:5432
-#    environment:
-#      - POSTGRES_USER=${SQL_USER}
-#    healthcheck:
-#      test:
-#        [
-#            "CMD-SHELL", "pg_isready -d $SQL_DB -U $SQL_USER"
-#        ]
-#      interval: 5s
-#      timeout: 5s
-#      retries: 5
-
 volumes:
-#  postgres_data:
   sqlserver_data:

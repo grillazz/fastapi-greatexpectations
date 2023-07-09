@@ -15,7 +15,7 @@ jobs:
     env:
       PYTHONDONTWRITEBYTECODE: 1
       PYTHONUNBUFFERED: 1
-      SA_PASSWORD: pass
+      SA_PASSWORD: YourStrong!Passw0rd
       ACCEPT_EULA: Y
 
     services:
