@@ -17,6 +17,11 @@ jobs:
       PYTHONUNBUFFERED: 1
       SA_PASSWORD: YourStrong!Passw0rd
       ACCEPT_EULA: Y
+      MSSQL_DB: master
+      MSSQL_HOST: localhost
+      MSSQL_USER: sa
+      MSSQL_SA_PASSWORD: Alaska2023
+      SQL_DATASOURCE_NAME: my_gxshakezz
 
     services:
       mssql:
