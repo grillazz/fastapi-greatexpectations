@@ -26,8 +26,6 @@ jobs:
     services:
       mssql:
         image: mcr.microsoft.com/mssql/server:2022-latest
-        container_name: mssql
-        command: bash -c "while ! /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -Q 'SELECT 1'; do sleep 1; done;"
         env:
           SA_PASSWORD: YourStrong!Passw0rd
           ACCEPT_EULA: Y
@@ -44,10 +42,11 @@ jobs:
       - name: Download AdventureWorks install script
         run: |
           curl -L -o AdventureWorks-oltp-install-script.zip https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks-oltp-install-script.zip
-      - name: Unzip and Install AdventureWorks Database
+      - name: ls and pwd
         run: |
-          7z x AdventureWorks-oltp-install-script.zip -oAdventureWorks-oltp-install-script
-          /opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -C -i AdventureWorks-oltp-install-script/instawdb.sql
+          ls -la
+          pwd
+
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
