@@ -27,7 +27,7 @@ jobs:
       mssql:
         image: mcr.microsoft.com/mssql/server:2022-latest
         volumes:
-          - ./sqlserver/setup:/var/opt/mssql/backup
+          - /sqlserver/setup:/var/opt/mssql/backup
         env:
           SA_PASSWORD: YourStrong!Passw0rd
           ACCEPT_EULA: Y
