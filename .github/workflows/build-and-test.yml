@@ -45,9 +45,8 @@ jobs:
         run: |
           curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
           cp AdventureWorksLT2022.bak ./sqlserver/setup/AdventureWorksLT2022.bak
-          ls
-          pwd
-          ls /sqlserver/setup
+          cd /sqlserver/setup
+          ls -al
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
