@@ -41,14 +41,12 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install SQL Server Tools
         run: sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
-      - name: Download AdventureWorks install script
+      - name: Download AdventureWorksLT2022 backup
         run: |
-          curl -L -o AdventureWorks-oltp-install-script.zip https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks-oltp-install-script.zip
-      - name: ls and pwd
-        run: |
-          ls -la
+          curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
+          cp AdventureWorksLT2022.bak /sqlserver/setup/AdventureWorksLT2022.bak
           pwd
-
+          ls /sqlserver/setup
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
