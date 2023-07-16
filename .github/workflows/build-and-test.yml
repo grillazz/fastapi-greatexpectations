@@ -44,8 +44,11 @@ jobs:
       - name: Download AdventureWorksLT2022 backup
         run: |
           curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
+          pwd
           cp AdventureWorksLT2022.bak ./sqlserver/setup/AdventureWorksLT2022.bak
-          cd /sqlserver/setup
+          ls -al
+           
+          cd sqlserver/setup
           ls -al
           pwd
       - uses: actions/setup-python@v4
