@@ -16,7 +16,6 @@ from fastapi.testclient import TestClient
                 "expect_column_mean_to_be_between",
                 "expect_column_median_to_be_between",
                 "expect_column_min_to_be_between",
-
                 "expect_column_most_common_value_to_be_in_set",
                 "expect_column_pair_values_a_to_be_greater_than_b",
                 "expect_column_pair_values_to_be_equal",
@@ -120,23 +119,28 @@ def test_get_expectation_types(
         #         status.HTTP_200_OK,
         # ),
         (
-                "expect_column_most_common_value_to_be_in_set",
-                status.HTTP_200_OK,
-                {"column": "section_number", "value_set": [5]},
-                False,
-                {'observed_value': [1]},
+            "expect_column_most_common_value_to_be_in_set",
+            status.HTTP_200_OK,
+            {"column": "section_number", "value_set": [5]},
+            False,
+            {"observed_value": [1]},
         ),
         (
-                "expect_column_most_common_value_to_be_in_set",
-                status.HTTP_200_OK,
-                {"column": "section_number", "value_set": [1]},
-                True,
-                {'observed_value': [1]},
+            "expect_column_most_common_value_to_be_in_set",
+            status.HTTP_200_OK,
+            {"column": "section_number", "value_set": [1]},
+            True,
+            {"observed_value": [1]},
         ),
     ),
 )
 def test_try_expectation_types(
-    client: TestClient, expectation_type: str, status_code: int, payload: dict, gx_success: bool, gx_result: dict
+    client: TestClient,
+    expectation_type: str,
+    status_code: int,
+    payload: dict,
+    gx_success: bool,
+    gx_result: dict,
 ):
     response = client.post(
         f"/v1/expectation/try_expectation/chapter/{expectation_type}", json=payload

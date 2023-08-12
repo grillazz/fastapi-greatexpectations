@@ -4,6 +4,7 @@ services:
 
   app:
     build: .
+    platform: linux/amd64
     env_file:
       - .env
       - .secrets
@@ -11,10 +12,11 @@ services:
       - ./app:/home/code/app
       - ./tests:/home/code/tests
       - ./logger.ini:/home/code/logger.ini
+      - ./sqlserver/setup:/home/code/setup
     ports:
       - 8585:8080
     depends_on:
-      - db
+      - sqlserver
     command: bash -c "
       uvicorn app.main:app
       --log-config ./logger.ini
@@ -27,6 +29,7 @@ services:
     build:
       context: ./sqlserver
       dockerfile: Dockerfile
+    platform: linux/amd64
     volumes:
       - sqlserver_data:/var/opt/mssql
       - ./sqlserver/backup:/var/opt/mssql/backup
@@ -34,35 +37,17 @@ services:
       - ./sqlserver/data:/var/opt/mssql/data
       - ./sqlserver/log:/var/opt/mssql/log
       - ./sqlserver/setup:/home/setup
+
     env_file:
       - .env
       - .secrets
+    environment:
+      - SA_PASSWORD=Alaska2023
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
     ports:
       - 1433:1433
 
 
-  db:
-    build:
-      context: ./db
-      dockerfile: Dockerfile
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - .env
-      - .secrets
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=${SQL_USER}
-    healthcheck:
-      test:
-        [
-            "CMD-SHELL", "pg_isready -d $SQL_DB -U $SQL_USER"
-        ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
 volumes:
-  postgres_data:
   sqlserver_data:
