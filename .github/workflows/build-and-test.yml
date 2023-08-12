@@ -51,7 +51,7 @@ jobs:
           ls -la
       - name: Restore AdventureWorksLT2022 backup
         run: |
-          /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Alaska2023' -d master -Q 'RESTORE DATABASE AdventureWorksLT2022 FROM DISK = "/var/opt/mssql/restore/AdventureWorksLT2022.bak" WITH MOVE "AdventureWorksLT2022" TO "/var/opt/mssql/data/AdventureWorksLT2022.mdf", MOVE "AdventureWorksLT2022_log" TO "/var/opt/mssql/data/AdventureWorksLT2022_log.ldf"'
+          /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Alaska2023' -d master -Q 'RESTORE DATABASE AdventureWorksLT2022 FROM DISK = "/var/opt/mssql/restore/AdventureWorksLT2022.bak" WITH MOVE "AdventureWorksLT2022_Data" TO "/var/opt/mssql/data/AdventureWorksLT2022.mdf", MOVE "AdventureWorksLT2022_log" TO "/var/opt/mssql/data/AdventureWorksLT2022_log.ldf"'
 #      - uses: actions/setup-python@v4
 #        with:
 #          python-version: ${{ matrix.python-version }}
