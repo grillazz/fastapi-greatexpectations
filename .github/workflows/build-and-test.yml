@@ -27,7 +27,7 @@ jobs:
       mssql:
         image: mcr.microsoft.com/mssql/server:2022-latest
         volumes:
-          - /sqlserver/setup:/var/opt/mssql/backup
+          - /sqlserver/setup:/var/opt/mssql/restore
         env:
           SA_PASSWORD: Alaska2023
           ACCEPT_EULA: Y
