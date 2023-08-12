@@ -27,7 +27,7 @@ jobs:
       mssql:
         image: mcr.microsoft.com/mssql/server:2022-latest
         volumes:
-          - ./sqlserver/setup:/var/opt/mssql/restore
+          - ./adventure_works:/var/opt/mssql/restore
 
         env:
           SA_PASSWORD: Alaska2023
@@ -45,6 +45,8 @@ jobs:
       - name: Download AdventureWorksLT2022 backup
         run: |
           curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
+          pwd
+          cd adventure_works
           pwd
           ls -la
       - name: Restore AdventureWorksLT2022 backup
