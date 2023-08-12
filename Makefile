@@ -54,8 +54,8 @@ coverage:	## Run project tests with coverage
 
 .PHONY: verify_db_backup
 verify_db_backup:	## Verify database backup file names before restore on running sqlserver container
-	docker-compose exec sqlserver bash -c "cd /opt/mssql-tools/bin && ./sqlcmd -S localhost -U sa -P 'yourStrong(!)Password' -d master -i /home/setup/verify.sql"
+	docker-compose exec sqlserver bash -c "cd /opt/mssql-tools/bin && ./sqlcmd -S localhost -U sa -P 'Alaska2023' -d master -i /home/setup/verify.sql"
 
 .PHONY: restore_db_backup
 restore_db_backup:	## Restore database backup on running sqlserver container
-	docker-compose exec sqlserver bash -c "cd /opt/mssql-tools/bin && ./sqlcmd -S localhost -U sa -P 'yourStrong(!)Password' -d master -i /home/setup/restore.sql"
+	docker-compose exec sqlserver bash -c "cd /opt/mssql-tools/bin && ./sqlcmd -S localhost -U sa -P 'Alaska2023' -d master -i /home/setup/restore.sql"

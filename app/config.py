@@ -1,19 +1,28 @@
 import os
 from functools import lru_cache
 
-from pydantic import BaseSettings, PostgresDsn
+from pydantic import BaseSettings, PostgresDsn, AnyUrl
+
+
+class SqlServerUrl(AnyUrl):
+    allowed_schemes = {
+        "mssql+pyodbc",
+    }
+    user_required = True
+    password_required = True
+    host_required = True
 
 
 class Settings(BaseSettings):
-    pg_url: PostgresDsn = PostgresDsn.build(
-        scheme="postgresql",
-        user=os.getenv("SQL_USER"),
-        password=os.getenv("POSTGRES_PASSWORD"),
-        host=os.getenv("SQL_HOST"),
-        port="5432",
-        path=f"/{os.getenv('SQL_DB') or ''}",
+    sqlserver_url: SqlServerUrl = SqlServerUrl.build(
+        scheme="mssql+pyodbc",
+        user=os.getenv("MSSQL_USER"),
+        password=os.getenv("MSSQL_SA_PASSWORD"),
+        host=os.getenv("MSSQL_HOST"),
+        port="1433",
+        path=f"/{os.getenv('MSSQL_DB') or ''}",
+        query="driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes",
     )
-    pg_url_csearch_path: str = os.getenv("SQL_CSEARCH_PATH")
     sql_datasource_name: str = os.getenv("SQL_DATASOURCE_NAME", "default")
 
 

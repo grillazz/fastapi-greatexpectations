@@ -4,56 +4,65 @@ on: pull_request
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
         python-version: [ "3.10" ]
-        poetry-version: [ "1.4.0" ]
+        poetry-version: [ "1.5.1" ]
 
 
     env:
       PYTHONDONTWRITEBYTECODE: 1
       PYTHONUNBUFFERED: 1
-      SQL_DB: testdb
-      SQL_HOST: 127.0.0.1
-      SQL_USER: postgres
-      POSTGRES_PASSWORD: secret
-      PGPASSWORD: secret
-      SQL_CSEARCH_PATH: shakespeare
+      SA_PASSWORD: Alaska2023
+      ACCEPT_EULA: Y
+      MSSQL_DB: master
+      MSSQL_HOST: localhost
+      MSSQL_USER: sa
+      MSSQL_SA_PASSWORD: Alaska2023
       SQL_DATASOURCE_NAME: my_gxshakezz
 
     services:
-      postgres:
-        image: postgres:14
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        volumes:
+          - ./adventure_works:/var/opt/mssql/restore
+
         env:
-          # must specify password for PG Docker container image, see: https://registry.hub.docker.com/_/postgres?tab=description&page=1&name=10
-          POSTGRES_PASSWORD: secret
-          POSTGRES_DB: testdb
+          SA_PASSWORD: Alaska2023
+          ACCEPT_EULA: Y
+          MSSQL_PID: Developer
         ports:
-          - 5432:5432
-        # needed because the postgres container does not provide a health check
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+          - 1433:1433
+        options: --name=mssql --health-cmd="/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Alaska2023' -Q 'SELECT 1'" --health-interval=10s --health-timeout=5s --health-retries=3
+
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Feed Database
-        run: psql -d postgresql://postgres@localhost/testdb -f ./db/shakespeare.sql
-        env:
-          PGPASSWORD: secret
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-      - name: Test Code Coverage
-        run: poetry run coverage run -m pytest -v --cov=app --cov-report=xml
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
-
-
+#      - uses: actions/checkout@v3
+      - name: Install SQL Server Tools
+        run: sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
+      - name: Download AdventureWorksLT2022 backup
+        run: |
+          curl -L -o AdventureWorksLT2022.bak https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak
+          sudo cp AdventureWorksLT2022.bak adventure_works/
+          cd adventure_works
+          pwd
+          ls -la
+      - name: Restore AdventureWorksLT2022 backup
+        run: |
+          /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Alaska2023' -d master -Q 'RESTORE DATABASE AdventureWorksLT2022 FROM DISK = "/var/opt/mssql/restore/AdventureWorksLT2022.bak" WITH MOVE "AdventureWorksLT2022_Data" TO "/var/opt/mssql/data/AdventureWorksLT2022.mdf", MOVE "AdventureWorksLT2022_log" TO "/var/opt/mssql/data/AdventureWorksLT2022_log.ldf"'
+#      - uses: actions/setup-python@v4
+#        with:
+#          python-version: ${{ matrix.python-version }}
+#      - name: Install Poetry
+#        uses: abatilo/actions-poetry@v2
+#        with:
+#          poetry-version: ${{ matrix.poetry-version }}
+#      - name: Install dependencies
+#        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+#        run: poetry install --no-interaction --no-root
+#      - name: Test Code Coverage
+#        run: poetry run coverage run -m pytest -v --cov=app --cov-report=xml
+#      - name: Coveralls
+#        uses: coverallsapp/github-action@v2
