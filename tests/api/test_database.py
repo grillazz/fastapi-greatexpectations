@@ -7,26 +7,22 @@ from fastapi.testclient import TestClient
     "response_data, status_code",
     (
         (
-                [
-                    "db_accessadmin",
-                    "db_backupoperator",
-                    "db_datareader",
-                    "db_datawriter",
-                    "db_ddladmin",
-                    "db_denydatareader",
-                    "db_denydatawriter",
-                    "db_owner",
-                    "db_securityadmin",
-                    "dbo",
-                    "guest",
-                    "HumanResources",
-                    "INFORMATION_SCHEMA",
-                    "Person",
-                    "Production",
-                    "Purchasing",
-                    "Sales",
-                    "sys"
-                ],
+            [
+                "db_accessadmin",
+                "db_backupoperator",
+                "db_datareader",
+                "db_datawriter",
+                "db_ddladmin",
+                "db_denydatareader",
+                "db_denydatawriter",
+                "db_owner",
+                "db_securityadmin",
+                "dbo",
+                "guest",
+                "INFORMATION_SCHEMA",
+                "SalesLT",
+                "sys",
+            ],
             status.HTTP_200_OK,
         ),
     ),
@@ -41,29 +37,27 @@ def test_get_schemas(client: TestClient, response_data: dict, status_code: int):
     "response_data, status_code",
     (
         (
-                [
-                    "Address",
-                    "AddressType",
-                    "BusinessEntity",
-                    "BusinessEntityAddress",
-                    "BusinessEntityContact",
-                    "ContactType",
-                    "CountryRegion",
-                    "EmailAddress",
-                    "Password",
-                    "Person",
-                    "PersonPhone",
-                    "PhoneNumberType",
-                    "StateProvince"
-                ],
+            [
+                "Address",
+                "Customer",
+                "CustomerAddress",
+                "Product",
+                "ProductCategory",
+                "ProductDescription",
+                "ProductModel",
+                "ProductModelProductDescription",
+                "SalesOrderDetail",
+                "SalesOrderHeader",
+            ],
             status.HTTP_200_OK,
         ),
     ),
 )
 def test_get_tables(client: TestClient, response_data: dict, status_code: int):
-    response = client.get("/v1/database/tables?sql_db_schema=Person")
+    response = client.get("/v1/database/tables?sql_db_schema=SalesLT")
     assert response.status_code == status_code
     assert sorted(response.json()) == sorted(response_data)
+
 
 # TODO: fix this test
 # @pytest.mark.parametrize(
