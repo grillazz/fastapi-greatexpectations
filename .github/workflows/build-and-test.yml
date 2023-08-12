@@ -39,7 +39,7 @@ jobs:
 
 
     steps:
-      - uses: actions/checkout@v3
+#      - uses: actions/checkout@v3
       - name: Install SQL Server Tools
         run: sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
       - name: Download AdventureWorksLT2022 backup
@@ -50,18 +50,18 @@ jobs:
           ls -la
       - name: Restore AdventureWorksLT2022 backup
         run: |
-          /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Alaska2023' -d master -i ./sqlserver/setup/restore.sql
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-      - name: Test Code Coverage
-        run: poetry run coverage run -m pytest -v --cov=app --cov-report=xml
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
+          /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Alaska2023' -d master -Q 'RESTORE DATABASE AdventureWorksLT2022 FROM DISK = "/var/opt/mssql/restore/AdventureWorksLT2022.bak" WITH MOVE "AdventureWorksLT2022" TO "/var/opt/mssql/data/AdventureWorksLT2022.mdf", MOVE "AdventureWorksLT2022_log" TO "/var/opt/mssql/data/AdventureWorksLT2022_log.ldf"'
+#      - uses: actions/setup-python@v4
+#        with:
+#          python-version: ${{ matrix.python-version }}
+#      - name: Install Poetry
+#        uses: abatilo/actions-poetry@v2
+#        with:
+#          poetry-version: ${{ matrix.poetry-version }}
+#      - name: Install dependencies
+#        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+#        run: poetry install --no-interaction --no-root
+#      - name: Test Code Coverage
+#        run: poetry run coverage run -m pytest -v --cov=app --cov-report=xml
+#      - name: Coveralls
+#        uses: coverallsapp/github-action@v2
