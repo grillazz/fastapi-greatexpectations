@@ -9,12 +9,12 @@ packages = [{include = "fastapi_greatexpectations"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 ipython = "*"
-fastapi = { extras = ["all"], version = "0.95.0" }
+fastapi = { extras = ["all"], version = "0.99.1" }
 sqlacodegen = "2.3.0.post1"
-great-expectations = { extras = ["postgresql"], version = "0.16.12" }
-rich = "^13.3.5"
-black = "^23.3.0"
-pytest = "^7.3.1"
+great-expectations = { extras = ["mssql"], version = "0.17.9" }
+rich = "^13.5.2"
+black = "^23.7.0"
+pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 pyodbc = "^4.0.39"
 
