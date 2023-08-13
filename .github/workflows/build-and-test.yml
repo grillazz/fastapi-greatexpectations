@@ -17,7 +17,7 @@ jobs:
       PYTHONUNBUFFERED: 1
       SA_PASSWORD: Alaska2023
       ACCEPT_EULA: Y
-      MSSQL_DB: master
+      MSSQL_DB: AdventureWorksLT2022
       MSSQL_HOST: localhost
       MSSQL_USER: sa
       MSSQL_SA_PASSWORD: Alaska2023
