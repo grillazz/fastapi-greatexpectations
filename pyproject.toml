@@ -7,11 +7,11 @@ readme = "README.md"
 packages = [{include = "fastapi_greatexpectations"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 ipython = "*"
 fastapi = { extras = ["all"], version = "0.99.1" }
 sqlacodegen = "2.3.0.post1"
-great-expectations = { extras = ["mssql"], version = "0.17.9" }
+great-expectations = { extras = ["mssql"], version = "0.17.12" }
 rich = "^13.5.2"
 black = "^23.7.0"
 pytest = "^7.4.0"
