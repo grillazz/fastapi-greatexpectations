@@ -1,11 +1,10 @@
-# fastapi-greatexpectations :shield: :eyes:
-
-[![developer](https://img.shields.io/badge/Dev-grillazz-green?style)](https://github.com/grillazz)
-![language](https://img.shields.io/badge/language-python-blue?style)
-[![license](https://img.shields.io/github/license/grillazz/fastapi-greatexpectations)](https://github.com/grillazz/fastapi-greatexpectations/blob/main/LICENSE)
-![visitors](https://visitor-badge.laobi.icu/badge?page_id=grillazz.fastapi-greatexpectations")
-[![CI](https://img.shields.io/github/workflow/status/grillazz/fastapi-greatexpectations/Unit%20Tests/main)](https://github.com/grillazz/fastapi-greatexpectations/actions/workflows/build-and-test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/grillazz/fastapi-greatexpectations/badge.svg?branch=main)](https://coveralls.io/github/grillazz/fastapi-greatexpectations?branch=main)
+# guardian oss :shield:
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 ![fastapi-greatexpectations](/static/wunsz.jpg)
 
@@ -60,3 +59,19 @@ Hope you enjoy it.
 
 ps. previous implementation of this project for `great-expectations = "0.16.3"` 
 is available [in this branch](https://github.com/grillazz/fastapi-greatexpectations/tree/gx_0163)
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/grillazz/fastapi-greatexpectations.svg?style=for-the-badge
+[contributors-url]: https://github.com/grillazz/fastapi-greatexpectations/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/grillazz/fastapi-greatexpectations.svg?style=for-the-badge
+[forks-url]: https://github.com/grillazz/fastapi-greatexpectations/network/members
+[stars-shield]: https://img.shields.io/github/stars/grillazz/fastapi-greatexpectations.svg?style=for-the-badge
+[stars-url]: https://github.com/grillazz/fastapi-greatexpectations/stargazers
+[issues-shield]: https://img.shields.io/github/issues/grillazz/fastapi-greatexpectations.svg?style=for-the-badge
+[issues-url]: https://github.com/grillazz/fastapi-greatexpectations/issues
+[license-shield]: https://img.shields.io/github/license/grillazz/fastapi-greatexpectations.svg?style=for-the-badge
+[license-url]: https://github.com/grillazz/fastapi-greatexpectations/blob/main/LICENSE
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/python-has-powers/
