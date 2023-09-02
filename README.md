@@ -8,6 +8,50 @@
 
 ![fastapi-greatexpectations](/static/wunsz.jpg)
 
+<a name="readme-top"></a>
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#make-will-help-you">Make will help you</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Available Integrations</a>
+      <ul>
+        <li><a href="#make-will-help-you">PostgreSQL</a></li>
+        <li><a href="#how-to-feed-database">Microsoft SQL Server</a></li>
+        <li><a href="#rainbow-logs-with-rich">MySQL >> WIP</a></li>
+        <li><a href="#setup-user-auth">Oracle >> WIP</a></li>
+      </ul>
+    </li>
+
+
+[//]: # (    <li><a href="#usage">Usage</a></li>)
+
+[//]: # (    <li><a href="#roadmap">Roadmap</a></li>)
+
+[//]: # (    <li><a href="#contributing">Contributing</a></li>)
+
+[//]: # (    <li><a href="#license">License</a></li>)
+
+[//]: # (    <li><a href="#contact">Contact</a></li>)
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+## About The Project
+
 In this place two personas William Shakespeare as [Data Feed](https://github.com/catherinedevlin/opensourceshakespeare)
 and Charles Dickens as [Data Validation](https://greatexpectations.io/expectations/)
 will be hosted by Almighty Monty Python as Guardian OSS :)
@@ -22,7 +66,13 @@ choice and the freedom of others people judgment,
 creating a future full of possibilities, accepting that whatever will be,
 will be; the future's not ours to see, que será, será.
 
-### :cook: How to Set up project locally
+### Built With
+
+
+
+## Getting Started
+
+### Make will help you
 
 To build , run and more... use magic of make help to play with this project.
 
@@ -46,13 +96,13 @@ requirements         Refresh requirements.txt from pipfile.lock
 up                   Run project with compose
 ```
 
-### How to Play
-
 1. Build project with docker compose: `make build`
 2. Run project with docker compose: `make up`
 3. Create database objects and insert data: `make feed_db`
 
-### Backbone
+
+
+## Backbone
 
 ...
 Hope you enjoy it.
