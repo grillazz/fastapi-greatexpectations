@@ -20,30 +20,6 @@ down: ## Reset project containers with compose
 clean: ## Clean Reset project containers with compose
 	docker-compose down -v --remove-orphans
 
-.PHONY: isort
-isort:  ## sort imports in project code.
-	docker-compose run --rm app isort  -m 3 -tc .
-
-.PHONY: black
-black:  ## apply black in project code.
-	docker-compose run --rm app black .
-
-.PHONY: mypy
-mypy:  ## apply black in project code.
-	docker-compose run --rm app mypy --ignore-missing-imports .
-
-.PHONY: flake8
-flake8:  ## apply black in project code.
-	docker-compose run --rm app flake8 .
-
-.PHONY: feed_db
-feed_db: ## create database objects and insert data
-	docker-compose exec db psql gxshakezz user -f /home/gx/code/shakespeare.sql
-
-.PHONY: requirements
-requirements:	## Refresh requirements.txt from pipfile.lock
-	pipenv lock --requirements --dev >| requirements.txt
-
 .PHONY: test
 test:	## Run project tests
 	docker-compose run --rm app pytest -vv

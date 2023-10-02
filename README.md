@@ -28,23 +28,12 @@
     <li>
       <a href="#getting-started">Available Integrations</a>
       <ul>
-        <li><a href="#make-will-help-you">PostgreSQL</a></li>
-        <li><a href="#how-to-feed-database">Microsoft SQL Server</a></li>
-        <li><a href="#rainbow-logs-with-rich">MySQL >> WIP</a></li>
-        <li><a href="#setup-user-auth">Oracle >> WIP</a></li>
+        <li><a href="#">PostgreSQL</a></li>
+        <li><a href="#">Microsoft SQL Server</a></li>
+        <li><a href="#">MySQL >> WIP</a></li>
+        <li><a href="#">Oracle >> WIP</a></li>
       </ul>
     </li>
-
-
-[//]: # (    <li><a href="#usage">Usage</a></li>)
-
-[//]: # (    <li><a href="#roadmap">Roadmap</a></li>)
-
-[//]: # (    <li><a href="#contributing">Contributing</a></li>)
-
-[//]: # (    <li><a href="#license">License</a></li>)
-
-[//]: # (    <li><a href="#contact">Contact</a></li>)
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -52,13 +41,10 @@
 
 ## About The Project
 
-In this place two personas William Shakespeare as [Data Feed](https://github.com/catherinedevlin/opensourceshakespeare)
-and Charles Dickens as [Data Validation](https://greatexpectations.io/expectations/)
-will be hosted by Almighty Monty Python as Guardian OSS :)
+`Guardian OSS` project is REST API wrapper for [greatexpectations.io](https://greatexpectations.io/) library.
 
 [greatexpectations.io](https://greatexpectations.io/expectations/) is a tool for data quality validation, documentation, and profiling.
-Here we will use latest version of [great-expectations = "0.16.12"](https://pypi.org/project/great-expectations/) 
-and [fastapi = "0.95.0"](https://pypi.org/project/fastapi/).
+
 
 Can we be better prepared for expected unexpected philosophy ?
 The `expect the unexpected` philosophy leads to the freedom of
@@ -68,7 +54,11 @@ will be; the future's not ours to see, que será, será.
 
 ### Built With
 
-
+[![FastAPI][fastapi.tiangolo.com]][fastapi-url]
+[![Pydantic][pydantic.com]][pydantic-url]
+[![pytest][pytest.org]][pytest-url]
+[![rich][rich.readthedocs.io]][rich-url]
+[![GX OSS][greatexpectations.io/gx-oss]][gx-url]
 
 ## Getting Started
 
@@ -83,32 +73,48 @@ make help
 and you receive below list:
 
 ```text
-black                apply black in project code.
 build                Build project with compose
 clean                Clean Reset project containers with compose
+coverage             Run project tests with coverage
 down                 Reset project containers with compose
-feed_db              create database objects and insert data
-flake8               apply black in project code.
 help                 Show this help
-isort                sort imports in project code.
-mypy                 apply black in project code.
-requirements         Refresh requirements.txt from pipfile.lock
-up                   Run project with compose
+restore_db_backup    Restore database backup on running sqlserver container
+test                 Run project tests
+up_code              Run project with compose
+verify_db_backup     Verify database backup file names before restore on running sqlserver container
 ```
 
-1. Build project with docker compose: `make build`
-2. Run project with docker compose: `make up`
-3. Create database objects and insert data: `make feed_db`
+
+### Local development with poetry
+
+Install poetry with pipx
+```shell
+pipx install --suffix "@1.6" poetry==1.6.1
+```
+Spawn new shell with poetry
+```shell
+poetry@1.6 shell
+```
+Install project dependencies
+```shell
+poetry@1.6 install
+```
+
+### How to setup project and feed database
+1. Use make to build and run project. It will add local volumes with SQL Server database files. Check `./sqlserver` folder for more details.
+```shell
+make build && make up_code
+```
+2. Download `AdventureWorksLT2022` database backup from [here](https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak)
 
 
+3. Copy database to `./sqlserver/restore` folder and restore it with make command
+```shell
+cp AdventureWorksLT2022.bak ./sqlserver/restore && make restore_db_backup
+```
 
-## Backbone
-
-...
 Hope you enjoy it.
 
-ps. previous implementation of this project for `great-expectations = "0.16.3"` 
-is available [in this branch](https://github.com/grillazz/fastapi-greatexpectations/tree/gx_0163)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -125,3 +131,14 @@ is available [in this branch](https://github.com/grillazz/fastapi-greatexpectati
 [license-url]: https://github.com/grillazz/fastapi-greatexpectations/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
+
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.103.2-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi-url]: https://fastapi.tiangolo.com/
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.4.2-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic-url]: https://docs.pydantic.dev/latest/
+[pytest.org]: https://img.shields.io/badge/pytest-7.4.0-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest-url]: https://docs.pytest.org/en/6.2.x/
+[greatexpectations.io/gx-oss]: https://img.shields.io/badge/Great%20Expectations-0.17.19-ff6310?style=for-the-badge&logo=greatexpectations&logoColor=white
+[gx-url]: https://greatexpectations.io/gx-oss/
+[rich.readthedocs.io]: https://img.shields.io/badge/rich-13.5.2-black?style=for-the-badge&logo=rich&logoColor=white
+[rich-url]: https://rich.readthedocs.io/en/latest/
