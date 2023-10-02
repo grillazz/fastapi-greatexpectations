@@ -1,10 +1,10 @@
 import os
-from functools import lru_cache
 
-from pydantic import BaseSettings, PostgresDsn, AnyUrl
+from pydantic_core import Url
+from pydantic_settings import BaseSettings
 
 
-class SqlServerUrl(AnyUrl):
+class SqlServerUrl(Url):
     allowed_schemes = {
         "mssql+pyodbc",
     }
@@ -16,19 +16,14 @@ class SqlServerUrl(AnyUrl):
 class Settings(BaseSettings):
     sqlserver_url: SqlServerUrl = SqlServerUrl.build(
         scheme="mssql+pyodbc",
-        user=os.getenv("MSSQL_USER"),
+        username=os.getenv("MSSQL_USER"),
         password=os.getenv("MSSQL_SA_PASSWORD"),
         host=os.getenv("MSSQL_HOST"),
-        port="1433",
-        path=f"/{os.getenv('MSSQL_DB') or ''}",
+        port=1433,
+        path=f"{os.getenv('MSSQL_DB') or ''}",
         query="driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes",
     )
     sql_datasource_name: str = os.getenv("SQL_DATASOURCE_NAME", "default")
 
 
-@lru_cache
-def get_settings():
-    return Settings()
-
-
-settings = get_settings()
+settings = Settings()
