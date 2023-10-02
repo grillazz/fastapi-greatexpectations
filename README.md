@@ -85,7 +85,33 @@ verify_db_backup     Verify database backup file names before restore on running
 ```
 
 
-## Backbone
+### Local development with poetry
+
+Install poetry with pipx
+```shell
+pipx install --suffix "@1.6" poetry==1.6.1
+```
+Spawn new shell with poetry
+```shell
+poetry@1.6 shell
+```
+Install project dependencies
+```shell
+poetry@1.6 install
+```
+
+### How to setup project and feed database
+1. Use make to build and run project. It will add local volumes with SQL Server database files. Check `./sqlserver` folder for more details.
+```shell
+make build && make up_code
+```
+2. Download `AdventureWorksLT2022` database backup from [here](https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2022.bak)
+
+
+3. Copy database to `./sqlserver/restore` folder and restore it with make command
+```shell
+cp AdventureWorksLT2022.bak ./sqlserver/restore && make restore_db_backup
+```
 
 Hope you enjoy it.
 
